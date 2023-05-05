@@ -2,6 +2,10 @@ package com.kvhuynh.server.models;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 // import javax.persistence.Column;
 // import javax.persistence.Entity;
 // import javax.persistence.GeneratedValue;
@@ -11,12 +15,15 @@ import java.util.Date;
 // import javax.persistence.PreUpdate;
 // import javax.persistence.Table;
 // import javax.persistence.Transient;
-
-import jakarta.persistence.*;
-import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 // import javax.validation.constraints.Email;
 import jakarta.validation.constraints.Email;
 // import javax.validation.constraints.NotEmpty;
@@ -51,29 +58,12 @@ public class User {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
 	
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
     
 	@Transient
     @NotEmpty(message="Please confirm password")
-    private String confirm;
-
+    private String confirmPassword;
 
 
     @PrePersist
@@ -96,6 +86,21 @@ public class User {
 		this.id = id;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
 	public String getEmail() {
 		return email;
@@ -130,11 +135,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getConfirm() {
-		return confirm;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
-	public void setConfirm(String confirm) {
-		this.confirm = confirm;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}	
 }

@@ -4,7 +4,7 @@ import Constants from "expo-constants";
 
 const { manifest } = Constants;
 
-const uri = `http://${manifest.debuggerHost.split(':').shift()}:8080/`;
+const uri = `http://${manifest.debuggerHost.split(':').shift()}:8080/api`;
 
 const http = axios.create({
 
@@ -18,3 +18,14 @@ export const testBackEnd = async () => {
     return res.data;
 }
 
+export const testRegister = async () => {
+    data = {
+        firstName: "Kevin",
+        lastName: "Huynh",
+        email: "kvhuynh820@gmail.com",
+        password: "test",
+        confirmPassword: "test"
+    }
+    const res = await http.post("/register", data)
+    return res.data;
+}

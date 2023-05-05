@@ -1,28 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, Button } from 'react-native';
-import { testBackEnd } from "./src/services/internalApiService"
+import { useState, useEffect } from "react";
+import { Button, SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { testBackEnd, testRegister } from "./src/services/internalApiService";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Login } from "./src/components/Login"
+import { MealOptionPage } from "./src/views/MealOptionPage"
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-
-  // useEffect(() => {
-    
-  // })
-
   return (
-    <>   
-    <SafeAreaView style={styles.container} >
-      <Button title="press me" onPress={testBackEnd}></Button>
-    </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {/* <Stack.Screen 
+          name="login"
+          component={Login}
+          options={{ unmountOnBlur: true, headerShown: false }}
+        /> */}
+        <Stack.Screen 
+        name="mealOptionPage"
+        component={MealOptionPage}
+        options={{ unmountOnBlur: true, headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // <MealOptionPage>
+    // </MealOptionPage>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF5DD',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

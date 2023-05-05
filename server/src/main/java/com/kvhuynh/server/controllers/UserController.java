@@ -1,9 +1,7 @@
 package com.kvhuynh.server.controllers;
 
 import java.io.IOException;
-import java.nio.channels.Channel;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kvhuynh.server.models.LoginUser;
 import com.kvhuynh.server.models.User;
 import com.kvhuynh.server.services.UserService;
 
@@ -32,29 +30,26 @@ public class UserController {
 		return "test";
 	}
 
-	@PostMapping("/register")
-	// public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session, Channel channel) throws IOException {
+	@PostMapping("/api/register")
+	// public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model, HttpSession session) throws IOException {
 		
-	public String register(BindingResult result, Model model, HttpSession session, Channel channel) throws IOException {
-	
-		// User user = userService.register(newUser, result);
-
-		User newUser = new User();
+	// public String register(@Valid @ModelAttribute("newUser") User newUser, BindingResult result, Model model) throws IOException {
+	public void register(@Valid @RequestBody User newUser, BindingResult result) throws IOException {
 
 		User user = userService.register(newUser, result);
 
-		System.out.println("i am here register");
+		System.out.println(user);
 
 		if (result.hasErrors()) {
-			model.addAttribute("newLogin", new LoginUser());
-			model.addAttribute("hasRegistrationError", "hasRegistrationError");
-			return "login-register.jsp";
+			// model.addAttribute("newLogin", new LoginUser());
+			// model.addAttribute("hasRegistrationError", "hasRegistrationError");
+			// return "login-register.jsp";
 		}
 
-		session.setAttribute("uuid", user.getId());
+		// session.setAttribute("uuid", user.getId());
 		
 
-		return "redirect:/";
+		// return "redirect:/";
 	}
 	
 

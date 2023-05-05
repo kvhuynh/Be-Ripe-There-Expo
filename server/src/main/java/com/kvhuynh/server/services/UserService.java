@@ -20,18 +20,22 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	public User register(User newUser, BindingResult result) {
+
+		System.out.println("do we get here");
+
 		// check if email is unique
 		if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
 			result.rejectValue("email", "Unique", "Email is already in use.");
 		}
 		
 		// check if password matches confirm password
-		if (!newUser.getPassword().equals(newUser.getConfirm())) {
+		if (!newUser.getPassword().equals(newUser.getConfirmPassword())) {
 			result.rejectValue("confirm", "Matches", "Passwords must match.");
 		}
 		
 		// final check to see if there are errors
 		if (result.hasErrors()) {
+			System.out.println(result.getFieldError());
 			return null;
 		}
 		
@@ -39,7 +43,7 @@ public class UserService {
 		newUser.setPassword(hashedPassword);
 		
 
-
+		System.out.println("Successfully registered user...");
 
 
 		return userRepository.save(newUser);
