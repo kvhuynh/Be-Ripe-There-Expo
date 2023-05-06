@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { Button, SafeAreaView, StyleSheet, StatusBar, Modal, View, Text, Pressable } from "react-native";
 import { testBackEnd, testRegister } from "./src/services/internalApiService";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,8 +8,7 @@ import { MealOptionPage } from "./src/views/MealOptionPage"
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-
+export const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -25,7 +24,7 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-    // <MealOptionPage>
-    // </MealOptionPage>
   );
 }
+
+export default App;
