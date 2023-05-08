@@ -12,7 +12,9 @@ import {
 	ScrollView,
 } from "react-native";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+
+import Carousel from "react-native-reanimated-carousel";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import SlideToggle from "../components/SlideToggle";
 
@@ -20,11 +22,13 @@ import ModalPopup from "../components/ModalPopup";
 
 export const MealOptionPage = ({ navigation }) => {
 	const [modalVisible, setModalVisible] = useState(false);
-	let ScreenHeight = Dimensions.get("window").height;
+	const [viewIngredients, setViewIngredients] = useState(true);
+	let screenHeight = Dimensions.get("window").height;
 	let screenWidth = Dimensions.get("window").width;
 
-	// TODO Touchable Highlight for image component to render modal popup
-	// TODO Scroll up feature like uber eats
+	useEffect(() => {
+		console.log("yo");
+	}, [viewIngredients]);
 
 	const testData = {
 		name: "Fried Rice",
@@ -34,56 +38,114 @@ export const MealOptionPage = ({ navigation }) => {
 			{
 				quantity: "500g",
 				name: "Rice",
-				imageUri: "",
+				imageUri: "../images/ingredients-test/rice.png",
 			},
 			{
 				quantity: "3",
 				name: "Eggs",
-				imageUri: "",
+				imageUri: "../images/ingredients-test/eggs.png",
 			},
 			{
 				quantity: "3",
 				name: "Medium Carrots",
-				imageUri: "",
-			},
-			{
-				quantity: "2 tbsp",
-				name: "Garlic",
-				imageUri: "",
-			},
-			{
-				quantity: "2 tbsp",
-				name: "Soy Sauce",
-				imageUri: "",
-			},
-			{
-				quantity: "2 tbsp",
-				name: "Scallions",
-				imageUri: "",
+				imageUri: "../images/ingredients-test/carrots.png",
 			},
 		],
 	};
 
-	return (
+	const ingredients = (
+		<ScrollView
+			style={{
+				paddingRight: "10%",
+			}}
+		>
+			{testData.ingredients.map((item, i) => {
+				let test = item.imageUri;
+				// console.log("i am being rendered");
+				return (
+					<View
+						style={{
+							// borderWidth: 1,
+							marginBottom: "1%",
+							backgroundColor: "#F1F1F1",
+							borderRadius: 5,
+							padding: "2%",
+							flexDirection: "row",
+							justifyContent: "space-between",
+						}}
+						key={i}
+					>
+						<View
+							style={{
+								// borderWidth: 1,
+								flexDirection: "row",
+								flex: 0.3,
+								// justifyContent: "space-between"
+							}}
+						>
+							<Image
+								style={{
+									// resizeMode: "contain",
+									// flex: 0.4,
+									height: 35,
+									width: 55,
+									borderRadius: 10,
+									// borderWidth: 1,
+								}}
+								source={{ uri: "https://reactjs.org/logo-og.png" }}
+							></Image>
+							<Text
+								style={{
+									// borderWidth: 1,
+									width: "200%",
+									marginLeft: "10%",
+									alignSelf: "center",
+									flexWrap: "wrap",
+								}}
+							>
+								{item.quantity} {item.name}
+							</Text>
+						</View>
+						<View
+							style={{
+								alignSelf: "center",
+							}}
+						>
+							<Text>yo</Text>
+						</View>
+					</View>
+				);
+			})}
+		</ScrollView>
+	);
+
+	const wtf = [ingredients, <Text>instructions</Text>];
+
+	const item = (
 		<>
 			<View>
 				<View>
 					<Image
-						style={{ width: "100%" }}
+						style={{
+							width: "100%",
+							// position: "absolute",
+							top: 0,
+						}}
 						source={require("../images/istockphoto-672810138-612x612.png")}
 					/>
 				</View>
 
 				<ScrollView
 					style={{
-						position: "absolute",
-						top: "80%",
+						// position: "absolute",
+						top: "-5%",
 						borderTopLeftRadius: 25,
 						borderTopRightRadius: 25,
 						overflow: "hidden",
 						backgroundColor: "#FFFFFF",
 						width: "100%",
-						height: ScreenHeight,
+						height: screenHeight,
+						// borderWidth: 1
 					}}
 				>
 					<View
@@ -123,9 +185,8 @@ export const MealOptionPage = ({ navigation }) => {
 							</View>
 						</View>
 						<View style={{ marginTop: "5%", marginBottom: "10%" }}>
-							<Text style={{ paddingHorizontal: "5%" }}>
-								This Nice and Fresh Fried Rice Is Made With Only 6 Easy
-								Ingredients.
+							<Text style={{ paddingHorizontal: "2%" }}>
+								{testData.description}
 							</Text>
 						</View>
 
@@ -264,102 +325,42 @@ export const MealOptionPage = ({ navigation }) => {
 						</View>
 						{/* Ingredients/Cart */}
 						<View>
-							<SlideToggle></SlideToggle>
-							<View style={{ marginTop: "5%" }}>
-								<Text>{testData.ingredients.length} items</Text>
-								{testData.ingredients.map((item, i) => {
-									return (
-										<View
-											style={{
-												marginBottom: "1%",
-												// borderWidth: 1,
-												backgroundColor: "#F1F1F1",
-												borderRadius: 5,
-												padding: "2%",
-											}}
-										>
-											<View style={{ 
-												// borderWidth: 1,
-												flexDirection: "row",
-												flex: 0.3
-										 }}>
-												<Image
-													style={{
-														resizeMode: "contain",
-														flex: 0.4,
-														height: 35,
-														width: "100%",
-
-													}}
-													source={require("../images/ingredients-test/rice.png")}
-												></Image>
-												<Text>
-													{item.quantity} {item.name}
-												</Text>
-											</View>
-										</View>
-									);
-								})}
+							<SlideToggle
+								viewIngredientsFunction={setViewIngredients}
+								viewIngredients={viewIngredients}
+							></SlideToggle>
+							<Text
+								style={{
+									paddingLeft: "2%",
+									marginBottom: "2%",
+									color: "#5D5D5D",
+								}}
+							>
+								{testData.ingredients.length} items
+							</Text>
+							<View style={{}}>
+								<Carousel
+									width={screenWidth}
+									height={screenWidth}
+									// autoPlay={true}
+									data={[...new Array(2).keys()]}
+									scrollAnimationDuration={200}
+									// onSnapToItem={(index) => console.log("current index:", index)}
+									onSnapToItem={() => setViewIngredients(!viewIngredients)}
+									renderItem={({ index }) => (
+										// viewIngredients ? ingredients : wtf[0]
+										<View style={{ marginTop: "5%" }}>{wtf[index]}</View>
+									)}
+								/>
 							</View>
 						</View>
-						
 					</View>
 				</ScrollView>
 			</View>
 		</>
 	);
+
+	return <ModalPopup test={item}></ModalPopup>;
 };
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 1,
-// 		backgroundColor: "#FFF5DD",
-// 		alignItems: "center",
-// 		justifyContent: "center",
-// 	},
-// });
-
-const styles = StyleSheet.create({
-	container: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center",
-		// backgroundColor: 'grey',
-	},
-	box: {
-		width: 50,
-		height: 50,
-	},
-	row: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-	},
-	button: {
-		paddingHorizontal: 8,
-		paddingVertical: 6,
-		borderRadius: 4,
-		backgroundColor: "oldlace",
-		alignSelf: "flex-start",
-		marginHorizontal: "1%",
-		marginBottom: 6,
-		minWidth: "48%",
-		textAlign: "center",
-	},
-	selected: {
-		backgroundColor: "coral",
-		borderWidth: 0,
-	},
-	buttonLabel: {
-		fontWeight: "500",
-		color: "coral",
-	},
-	selectedLabel: {
-		color: "white",
-	},
-	label: {
-		textAlign: "center",
-		marginBottom: 10,
-	},
-});
 
 export default MealOptionPage;

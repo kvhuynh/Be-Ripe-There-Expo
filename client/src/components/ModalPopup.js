@@ -1,126 +1,87 @@
-import { useState } from "react";
-import { Text, Pressable, Modal, View, StyleSheet } from "react-native";
+import React, { useCallback, useRef, useMemo, useEffect } from "react";
+import { StyleSheet, View, Text, Button, Dimensions } from "react-native";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
-export const ModalPopup = () => {
-	const [modalVisible, setModalVisible] = useState(false);
+export const ModalPopup = (props) => {
 
-  return(
-	<View style={styles.centeredView}>
-		<Modal
-			animationType="slide"
-			transparent={true}
-			visible={modalVisible}
-			onRequestClose={() => {
-				Alert.alert("Modal has been closed.");
-				setModalVisible(!modalVisible);
-			}}
-		>
-			<View style={styles.centeredView}>
-				<View style={styles.modalView}>
-					<Text style={styles.modalText}>Hello World!</Text>
-					<Pressable
-						style={[styles.button, styles.buttonClose]}
-						onPress={() => setModalVisible(!modalVisible)}
-					>
-						<Text style={styles.textStyle}>Hide Modal</Text>
-					</Pressable>
-				</View>
-			</View>
-		</Modal>
-		<Pressable
-			style={[styles.button, styles.buttonOpen]}
-			onPress={() => setModalVisible(true)}
-		>
-			<Text style={styles.textStyle}>Show Modal</Text>
-		</Pressable>
-	</View>);
+
+  // hooks
+  const sheetRef = useRef(null);
+
+  // variables
+  const data = useMemo(
+    () =>
+      Array(50)
+        .fill(0)
+        .map((_, index) => `index-${index}`),
+    []
+  );
+  const snapPoints = useMemo(() => ["100%"], []);
+
+  // callbacks
+  const handleSheetChange = useCallback((index) => {
+    console.log("handleSheetChange", index);
+  }, []);
+  const handleSnapPress = useCallback((index) => {
+    sheetRef.current?.snapToIndex(index);
+  }, []);
+  const handleClosePress = useCallback(() => {
+    sheetRef.current?.close();
+  }, []);
+
+  // render
+  const renderItem = useCallback(
+    (item) => (
+      <View key={item} style={styles.itemContainer}>
+        <Text>{item}</Text>
+      </View>
+    ),
+    []
+  );
+  return (
+    <View style={styles.container}>
+      {/* <Button title="Snap To 90%" onPress={() => handleSnapPress(2)} /> */}
+      {/* <Button title="Snap To 50%" onPress={() => handleSnapPress(1)} /> */}
+      <Button title="Fried Rice" onPress={() => handleSnapPress(0)} />
+      <Button title="Close" onPress={() => handleClosePress()} />
+      <BottomSheet
+        ref={sheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        onChange={handleSheetChange}
+        enablePanDownToClose={true}
+        handleIndicatorStyle={{ display: "none" }}
+        backgroundComponent={null}
+        handleHeight={40}
+        
+
+      >
+        <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
+          {/* {data.map(renderItem)} */}
+            {props.test}
+
+        </BottomSheetScrollView>
+      </BottomSheet>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-	centeredView: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: 'center',
-		marginTop: 22,
-	},
-	modalView: {
-		margin: 4,
-		backgroundColor: "white",
-		borderRadius: 20,
-		padding: 35,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		shadowOpacity: 0.25,
-		shadowRadius: 4,
-		elevation: 5,
-	},
-	button: {
-		borderRadius: 20,
-		padding: 10,
-		elevation: 2,
-	},
-	buttonOpen: {
-		backgroundColor: "#F194FF",
-	},
-	buttonClose: {
-		backgroundColor: "#2196F3",
-	},
-	textStyle: {
-		color: "white",
-		fontWeight: "bold",
-		textAlign: "center",
-	},
-	modalText: {
-		marginBottom: 15,
-		textAlign: "center",
-	},
+  container: {
+    flex: 1,
+    paddingTop: 200,
+    backgroundColor: "#FFFFFF"
+  },
+  contentContainer: {
+    backgroundColor: "#FFFFFF",
+    
+  },
+  itemContainer: {
+    padding: 6,
+    margin: 6,
+    backgroundColor: "white",
+  },
 });
 
-// const styles = StyleSheet.create({
-//   centeredView: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     marginTop: 22
-//   },
-//   modalView: {
-//     margin: 20,
-//     backgroundColor: "white",
-//     borderRadius: 20,
-//     padding: 35,
-//     alignItems: "center",
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 2
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 4,
-//     elevation: 5
-//   },
-//   button: {
-//     borderRadius: 20,
-//     padding: 10,
-//     elevation: 2
-//   },
-//   buttonOpen: {
-//     backgroundColor: "#F194FF",
-//   },
-//   buttonClose: {
-//     backgroundColor: "#2196F3",
-//   },
-//   textStyle: {
-//     color: "white",
-//     fontWeight: "bold",
-//     textAlign: "center"
-//   },
-//   modalText: {
-//     marginBottom: 15,
-//     textAlign: "center"
-//   }
-// });
 
 export default ModalPopup;

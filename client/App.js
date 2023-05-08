@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from "./src/components/Login"
 import { MealOptionPage } from "./src/views/MealOptionPage"
 
+import { BottomTabs } from "./src/components/BottomTabs"
+
 const Stack = createNativeStackNavigator();
 
 export const App = () => {
@@ -19,12 +21,14 @@ export const App = () => {
         /> */}
         <Stack.Screen 
         name="mealOptionPage"
-        component={MealOptionPage}
+        component={BottomTabs}
         options={{ unmountOnBlur: true, headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
+    
   );
 }
 
 export default App;
+
