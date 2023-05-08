@@ -26,9 +26,6 @@ export const MealOptionPage = ({ navigation }) => {
 	let screenHeight = Dimensions.get("window").height;
 	let screenWidth = Dimensions.get("window").width;
 
-	useEffect(() => {
-		console.log("yo");
-	}, [viewIngredients]);
 
 	const testData = {
 		name: "Fried Rice",
@@ -36,6 +33,63 @@ export const MealOptionPage = ({ navigation }) => {
 			"This Nice and Fresh Fried Rice Is Made With Only 6 Easy Ingredients.",
 		ingredients: [
 			{
+				quantity: "500g",
+				name: "Rice",
+				imageUri: "../images/ingredients-test/rice.png",
+			},
+			{
+				quantity: "3",
+				name: "Eggs",
+				imageUri: "../images/ingredients-test/eggs.png",
+			},
+			{
+				quantity: "3",
+				name: "Medium Carrots",
+				imageUri: "../images/ingredients-test/carrots.png",
+			},
+			{
+				quantity: "500g",
+				name: "Rice",
+				imageUri: "../images/ingredients-test/rice.png",
+			},
+			{
+				quantity: "3",
+				name: "Eggs",
+				imageUri: "../images/ingredients-test/eggs.png",
+			},
+			{
+				quantity: "3",
+				name: "Medium Carrots",
+				imageUri: "../images/ingredients-test/carrots.png",
+			},			{
+				quantity: "500g",
+				name: "Rice",
+				imageUri: "../images/ingredients-test/rice.png",
+			},
+			{
+				quantity: "3",
+				name: "Eggs",
+				imageUri: "../images/ingredients-test/eggs.png",
+			},
+			{
+				quantity: "3",
+				name: "Medium Carrots",
+				imageUri: "../images/ingredients-test/carrots.png",
+			},			{
+				quantity: "500g",
+				name: "Rice",
+				imageUri: "../images/ingredients-test/rice.png",
+			},
+			{
+				quantity: "3",
+				name: "Eggs",
+				imageUri: "../images/ingredients-test/eggs.png",
+			},
+			{
+				quantity: "3",
+				name: "Medium Carrots",
+				imageUri: "../images/ingredients-test/carrots.png",
+			},			{
 				quantity: "500g",
 				name: "Rice",
 				imageUri: "../images/ingredients-test/rice.png",
@@ -345,7 +399,7 @@ export const MealOptionPage = ({ navigation }) => {
 									// autoPlay={true}
 									data={[...new Array(2).keys()]}
 									scrollAnimationDuration={200}
-									// onSnapToItem={(index) => console.log("current index:", index)}
+									// onSnapToItem={(index) => console. ("current index:", index)}
 									onSnapToItem={() => setViewIngredients(!viewIngredients)}
 									renderItem={({ index }) => (
 										// viewIngredients ? ingredients : wtf[0]

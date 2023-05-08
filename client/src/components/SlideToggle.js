@@ -15,10 +15,10 @@ export const BuiltInSlideToggle = (props) => {
 	useEffect(() => {
 
 		if (!props.viewIngredients) {
-			console.log("setting initial value to 1");
+			// console.log("setting initial value to 1");
 			setInitialValue(1);
 		} else {
-			console.log("setting initial value to 0");
+			// console.log("setting initial value to 0");
 			setInitialValue(0);
 		}
 		// console.log(initialValue);
@@ -36,7 +36,7 @@ export const BuiltInSlideToggle = (props) => {
 				onPress={(value) => {
 					props.viewIngredientsFunction(!props.viewIngredients);
 					// setViewIngredients(!viewIngredients)
-					console.log("from slide toggle ")
+					// console.log("from slide toggle ")
 				}}
 			/>
 		</>
