@@ -1,7 +1,8 @@
-import React, { useCallback, useRef, useMemo, useEffect } from "react";
-import { StyleSheet, View, Text, Button, Dimensions } from "react-native";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import React, { useCallback, useMemo, useRef } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 
+import { FloatingActionButton } from "./FloatingActionButton";
 export const ModalPopup = (props) => {
 
 
@@ -61,6 +62,7 @@ export const ModalPopup = (props) => {
             {props.test}
 
         </BottomSheetScrollView>
+        <FloatingActionButton text={ "Add To Calendar" }></FloatingActionButton>
       </BottomSheet>
     </View>
   );

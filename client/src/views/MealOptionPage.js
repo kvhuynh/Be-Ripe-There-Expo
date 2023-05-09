@@ -1,31 +1,30 @@
 import {
-	SafeAreaView,
-	Text,
-	StyleSheet,
-	View,
-	Image,
-	StatusBar,
 	Dimensions,
-	Modal,
-	Pressable,
-	TouchableHighlight,
+	Image,
 	ScrollView,
+	Text,
+	TouchableOpacity,
+	View
 } from "react-native";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState } from "react";
 
 import Carousel from "react-native-reanimated-carousel";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import SlideToggle from "../components/SlideToggle";
 
 import ModalPopup from "../components/ModalPopup";
+import { color } from "react-native-reanimated";
+
+
 
 export const MealOptionPage = ({ navigation }) => {
 	const [modalVisible, setModalVisible] = useState(false);
+
+	// TODO: When back end is set up useState is the value of whatever it is in the backend: object.isFavorited
+	const [isFavorited, setIsFavorited] = useState(false);
 	const [viewIngredients, setViewIngredients] = useState(true);
 	let screenHeight = Dimensions.get("window").height;
 	let screenWidth = Dimensions.get("window").width;
-
 
 	const testData = {
 		name: "Fried Rice",
@@ -61,7 +60,8 @@ export const MealOptionPage = ({ navigation }) => {
 				quantity: "3",
 				name: "Medium Carrots",
 				imageUri: "../images/ingredients-test/carrots.png",
-			},			{
+			},
+			{
 				quantity: "500g",
 				name: "Rice",
 				imageUri: "../images/ingredients-test/rice.png",
@@ -75,7 +75,8 @@ export const MealOptionPage = ({ navigation }) => {
 				quantity: "3",
 				name: "Medium Carrots",
 				imageUri: "../images/ingredients-test/carrots.png",
-			},			{
+			},
+			{
 				quantity: "500g",
 				name: "Rice",
 				imageUri: "../images/ingredients-test/rice.png",
@@ -89,7 +90,8 @@ export const MealOptionPage = ({ navigation }) => {
 				quantity: "3",
 				name: "Medium Carrots",
 				imageUri: "../images/ingredients-test/carrots.png",
-			},			{
+			},
+			{
 				quantity: "500g",
 				name: "Rice",
 				imageUri: "../images/ingredients-test/rice.png",
@@ -171,6 +173,7 @@ export const MealOptionPage = ({ navigation }) => {
 				);
 			})}
 		</ScrollView>
+		
 	);
 
 	const wtf = [ingredients, <Text>instructions</Text>];
@@ -215,12 +218,28 @@ export const MealOptionPage = ({ navigation }) => {
 								style={{ flexDirection: "row", justifyContent: "space-evenly" }}
 							>
 								<Text style={{ fontSize: "30%", fontWeight: "bold" }}>
-									Fried Rice
+									{testData.name}
 								</Text>
-								<Image
+								<TouchableOpacity
+									style={{ alignSelf: "center" }}
+									onPress={() => setIsFavorited(!isFavorited)}
+								>
+									{isFavorited ? (
+										<Image
+											style={{ alignSelf: "center", marginLeft: "5%" }}
+											source={require("../images/favorited.png")}
+										/>
+									) : (
+										<Image
+											style={{ alignSelf: "center", marginLeft: "5%" }}
+											source={require("../images/not-favorited.png")}
+										/>
+									)}
+								</TouchableOpacity>
+								{/* <Image
 									style={{ alignSelf: "center", marginLeft: "5%" }}
-									source={require("../images/Group-43.png")}
-								/>
+									source={require("../images/not-favorited.png")}
+								/> */}
 							</View>
 							<View style={{ flexDirection: "row" }}>
 								<Image
@@ -379,19 +398,45 @@ export const MealOptionPage = ({ navigation }) => {
 						</View>
 						{/* Ingredients/Cart */}
 						<View>
-							<SlideToggle
-								viewIngredientsFunction={setViewIngredients}
-								viewIngredients={viewIngredients}
-							></SlideToggle>
-							<Text
-								style={{
-									paddingLeft: "2%",
-									marginBottom: "2%",
-									color: "#5D5D5D",
-								}}
-							>
-								{testData.ingredients.length} items
-							</Text>
+							<View style={{ marginBottom: "8%" }}>
+								<SlideToggle
+									viewIngredientsFunction={setViewIngredients}
+									viewIngredients={viewIngredients}
+								></SlideToggle>
+							</View>
+							<View style={{
+								flexDirection: "row",
+								justifyContent: "space-between",
+								marginBottom: "2%"
+							}}>
+								<Text
+									style={{
+										paddingLeft: "2%",
+										marginBottom: "2%",
+										color: "#5D5D5D",
+									}}
+								>
+									{testData.ingredients.length} items
+								</Text>
+								<View
+									style={{
+										borderBottomWidth: 2,
+										borderBottomColor: "#3B9744",
+									}}
+								>
+
+									<Text style={{
+										color: "#3B9744",
+										fontSize: "15%",
+										fontWeight: "bold",
+										// textDecorationLine: "underline"
+										lineHeight: 20,
+										
+									}}>
+										Add all to Cart
+									</Text>
+								</View>
+							</View>
 							<View style={{}}>
 								<Carousel
 									width={screenWidth}
@@ -403,7 +448,8 @@ export const MealOptionPage = ({ navigation }) => {
 									onSnapToItem={() => setViewIngredients(!viewIngredients)}
 									renderItem={({ index }) => (
 										// viewIngredients ? ingredients : wtf[0]
-										<View style={{ marginTop: "5%" }}>{wtf[index]}</View>
+
+										<View>{wtf[index]}</View>
 									)}
 								/>
 							</View>

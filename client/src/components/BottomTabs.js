@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Meals } from "./../views/Meals"
 import { MealOptionPage } from "./../views/MealOptionPage";
-import { Image, Text } from "react-native";
+import { Image, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 export const BottomTabs = () => {
@@ -15,10 +16,16 @@ export const BottomTabs = () => {
 					tabBarShowLabel: false,
 					tabBarIcon: ({ focused }) =>
 						focused ? (
-							<Image
-								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/selected/home-selected.png")}
-							/>
+							<>
+								<Image
+									style={{ width: 25, height: 25 }}
+									source={require("../images/tab-navigation-icons/selected/home-selected.png")}
+								/>
+								<Image
+									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
+									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+								/>
+							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
@@ -29,17 +36,24 @@ export const BottomTabs = () => {
 			/>
 			<Tab.Screen
 				name="Meals"
-				component={MealOptionPage}
+				component={Meals}
 				options={{
 					unmountOnBlur: true,
 					headerShown: false,
 					tabBarShowLabel: false,
 					tabBarIcon: ({ focused }) =>
 						focused ? (
-							<Image
-								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/selected/meals-selected.png")}
-							/>
+							<>
+								<Image
+									style={{ width: 25, height: 25 }}
+									source={require("../images/tab-navigation-icons/selected/meals-selected.png")}
+								/>
+								<Image
+									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
+
+									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+								/>
+							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
@@ -57,10 +71,17 @@ export const BottomTabs = () => {
 					tabBarShowLabel: false,
 					tabBarIcon: ({ focused }) =>
 						focused ? (
-							<Image
-								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/selected/calendar-selected.png")}
-							/>
+							<>
+								<Image
+									style={{ width: 25, height: 25 }}
+									source={require("../images/tab-navigation-icons/selected/calendar-selected.png")}
+								/>
+								<Image
+									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
+
+									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+								/>
+							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
@@ -78,10 +99,17 @@ export const BottomTabs = () => {
 					tabBarShowLabel: false,
 					tabBarIcon: ({ focused }) =>
 						focused ? (
-							<Image
-								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/selected/cart-selected.png")}
-							/>
+							<>
+								<Image
+									style={{ width: 25, height: 25 }}
+									source={require("../images/tab-navigation-icons/selected/cart-selected.png")}
+								/>
+								<Image
+									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
+
+									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+								/>
+							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
@@ -99,10 +127,17 @@ export const BottomTabs = () => {
 					tabBarShowLabel: false,
 					tabBarIcon: ({ focused }) =>
 						focused ? (
-							<Image
-								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/selected/user-selected.png")}
-							/>
+							<>
+								<Image
+									style={{ width: 25, height: 25 }}
+									source={require("../images/tab-navigation-icons/selected/user-selected.png")}
+								/>
+								<Image
+									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
+
+									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+								/>
+							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}

@@ -30,7 +30,7 @@ export const BuiltInSlideToggle = (props) => {
 				options={options}
 				initial={initialValue}
 				textColor={"#3B9744"}
-                backgroundColor={"#F1F1F1"}
+                backgroundColor={"#FFFFFF"}
 				buttonColor={"#3B9744"}
                 borderRadius={10}
 				onPress={(value) => {
