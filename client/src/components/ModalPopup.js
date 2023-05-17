@@ -5,7 +5,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import { FloatingActionButton } from "./FloatingActionButton";
 export const ModalPopup = (props) => {
 
-
+  console.log("yo")
   // hooks
   const sheetRef = useRef(null);
 
@@ -43,8 +43,8 @@ export const ModalPopup = (props) => {
     <View style={styles.container}>
       {/* <Button title="Snap To 90%" onPress={() => handleSnapPress(2)} /> */}
       {/* <Button title="Snap To 50%" onPress={() => handleSnapPress(1)} /> */}
-      <Button title="Fried Rice" onPress={() => handleSnapPress(0)} />
-      <Button title="Close" onPress={() => handleClosePress()} />
+      {/* <Button title="Fried Rice" onPress={() => handleSnapPress(0)} />
+      <Button title="Close" onPress={() => handleClosePress()} /> */}
       <BottomSheet
         ref={sheetRef}
         index={0}

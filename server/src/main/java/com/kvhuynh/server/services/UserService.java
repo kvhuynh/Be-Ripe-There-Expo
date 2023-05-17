@@ -21,8 +21,6 @@ public class UserService {
 	
 	public User register(User newUser, BindingResult result) {
 
-		System.out.println("do we get here");
-
 		// check if email is unique
 		if (userRepository.findByEmail(newUser.getEmail()).isPresent()) {
 			result.rejectValue("email", "Unique", "Email is already in use.");

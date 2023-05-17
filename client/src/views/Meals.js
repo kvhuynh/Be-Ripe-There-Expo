@@ -4,16 +4,14 @@ import {
 	Image,
 	ScrollView,
 	Text,
-	View,
 	TouchableOpacity,
-	ToggleButton,
-	StyleSheet,
+	View
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { SearchBar } from "@rneui/themed";
 
-export const Meals = () => {
+export const Meals = ({ navigation }) => {
 	let screenHeight = Dimensions.get("window").height;
 	let screenWidth = Dimensions.get("window").width;
 
@@ -34,6 +32,10 @@ export const Meals = () => {
 	];
 
 	return (
+		<Animated.View
+        key={'uniqueKey'}
+        entering={FadeIn.duration(400)}
+        exiting={FadeOut.duration(400)}>
 		<ScrollView
 			style={{
 				backgroundColor: "#FFFFFF",
@@ -51,7 +53,7 @@ export const Meals = () => {
 					<View
 						style={{ flexDirection: "row", justifyContent: "space-evenly" }}
 					>
-						<Text style={{ fontSize: "30%", fontWeight: "bold" }}>
+						<Text style={{ fontSize: 30, fontWeight: "bold" }}>
 							Find the best recipes for cooking
 						</Text>
 						{/* <Image
@@ -121,7 +123,7 @@ export const Meals = () => {
 						</Text>
 						<Text
 							style={{
-								fontSize: "17%",
+								fontSize: 17,
 								color: "#3B9744",
 								fontWeight: "bold",
 								alignSelf: "center",
@@ -144,13 +146,16 @@ export const Meals = () => {
 						pagingEnabled={true}
 						onSnapToItem={(index) => console.log("current index:", index)}
 						renderItem={({ index }) => (
-							<View
+							<TouchableOpacity
 								style={{
 									flex: 1,
 									marginLeft: "1%",
 									// borderWidth: 1,
 									borderRadius: 20,
 									marginRight: "4%",
+								}}
+								onPress={() => {
+									navigation.navigate("MealDetails")
 								}}
 							>
 								<Image
@@ -183,7 +188,7 @@ export const Meals = () => {
 										}}
 									>
 										<Text
-											style={{ fontSize: "20%", fontWeight: "bold" }}
+											style={{ fontSize: 20, fontWeight: "bold" }}
 										>
 											Fried Rice
 										</Text>
@@ -193,7 +198,7 @@ export const Meals = () => {
 
 									</View>
 								</View>
-							</View>
+							</TouchableOpacity>
 						)}
 					/>
 				</View>
@@ -210,7 +215,7 @@ export const Meals = () => {
 							// paddingRight: "%",
 						}}
 					>
-						<Text style={{ fontSize: "20%", fontWeight: "bold" }}>
+						<Text style={{ fontSize: 20, fontWeight: "bold" }}>
 							Favorites
 						</Text>
 						{/* <Text
@@ -303,20 +308,10 @@ export const Meals = () => {
 							// paddingRight: "%",
 						}}
 					>
-						<Text style={{ fontSize: "20%", fontWeight: "bold" }}>
+						<Text style={{ fontSize: 20, fontWeight: "bold" }}>
 							Specialized Meals
 						</Text>
-						{/* <Text
-							style={{
-								fontSize: "17%",
-								color: "#3B9744",
-								fontWeight: "bold",
-								alignSelf: "center",
-								marginRight: "5%",
-							}}
-						>
-							See all
-						</Text> */}
+
 					</View>
 
 					<Carousel
@@ -395,7 +390,7 @@ export const Meals = () => {
 						renderItem={({ index }) => (
 							<View
 								style={{
-									flex: 1,
+									flex: 0.7,
 									marginLeft: "1%",
 									// borderWidth: 1,
 									borderRadius: 10,
@@ -464,6 +459,7 @@ export const Meals = () => {
 				<Text></Text>
 			</View> */}
 		</ScrollView>
+		</Animated.View>
 	);
 };
 

@@ -13,11 +13,12 @@ import Carousel from "react-native-reanimated-carousel";
 import SlideToggle from "../components/SlideToggle";
 
 import ModalPopup from "../components/ModalPopup";
-import { color } from "react-native-reanimated";
+import { FloatingActionButton } from "../components/FloatingActionButton";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 
 
-export const MealOptionPage = ({ navigation }) => {
+export const MealDetails = ({ navigation }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 
 	// TODO: When back end is set up useState is the value of whatever it is in the backend: object.isFavorited
@@ -217,7 +218,7 @@ export const MealOptionPage = ({ navigation }) => {
 							<View
 								style={{ flexDirection: "row", justifyContent: "space-evenly" }}
 							>
-								<Text style={{ fontSize: "30%", fontWeight: "bold" }}>
+								<Text style={{ fontSize: 30, fontWeight: "bold" }}>
 									{testData.name}
 								</Text>
 								<TouchableOpacity
@@ -249,7 +250,7 @@ export const MealOptionPage = ({ navigation }) => {
 								<Text
 									style={{
 										alignSelf: "center",
-										fontSize: "10%",
+										fontSize: 10,
 										color: "#838383",
 									}}
 								>
@@ -427,7 +428,7 @@ export const MealOptionPage = ({ navigation }) => {
 
 									<Text style={{
 										color: "#3B9744",
-										fontSize: "15%",
+										fontSize: 15,
 										fontWeight: "bold",
 										// textDecorationLine: "underline"
 										lineHeight: 20,
@@ -455,12 +456,38 @@ export const MealOptionPage = ({ navigation }) => {
 							</View>
 						</View>
 					</View>
+
 				</ScrollView>
 			</View>
 		</>
 	);
 
-	return <ModalPopup test={item}></ModalPopup>;
+	// return <ModalPopup test={item}></ModalPopup>;
+	return (
+		<>
+		<ScrollView style={{
+			backgroundColor: "#FFFFFF"
+		}}>
+			{/* <BottomSheet
+					index={0}
+					enablePanDownToClose={true}
+					handleIndicatorStyle={{ display: "none" }}
+					backgroundComponent={null}
+					handleHeight={40}
+			>
+
+				<BottomSheetScrollView>
+					{item}
+
+				</BottomSheetScrollView>
+			</BottomSheet> */}
+			{item}
+		</ScrollView>
+
+		<FloatingActionButton text={ "Add To Calendar" } navigation={navigation} goTo={"AddToCalendar"} data={{}}></FloatingActionButton>
+		</>
+	)
+
 };
 
-export default MealOptionPage;
+export default MealDetails;

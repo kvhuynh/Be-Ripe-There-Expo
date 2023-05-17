@@ -1,4 +1,5 @@
 import { Text, TouchableOpacity, Dimensions } from "react-native";
+import ModalPopup from "./ModalPopup";
 
 export const FloatingActionButton = (props) => {
 	let screenHeight = Dimensions.get("window").height;
@@ -21,6 +22,19 @@ export const FloatingActionButton = (props) => {
 				borderRadius: 20,
 				borderWidth: 1,
 				borderColor: "#FFFFFF",
+
+			}}
+			onPress={() => {
+				let timeoutId = setTimeout(() => {
+					props.navigation.addListener("beforeRemove", (e) => {
+						console.log(e)
+						return
+					})
+					props.navigation.navigate("CalendarStack", {screen: props.goTo}), 0})
+
+				if (props.goTo === "AddToCalendar") {
+					props.navigation.goBack()  
+				} 
 			}}
 		>
 			<Text

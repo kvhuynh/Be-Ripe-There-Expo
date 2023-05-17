@@ -1,15 +1,35 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Meals } from "./../views/Meals"
-import { MealOptionPage } from "./../views/MealOptionPage";
-import { Image, View } from "react-native";
+import { Image } from "react-native";
+import { MealStack } from "../navigation/MealStack";
+import { HomeStack } from "../navigation/HomeStack"
+import { MealDetails } from "../views/MealDetails";
+import { CalendarStack } from "../navigation/CalendarStack"
+
+
+const leftToRightAnimation = {
+	cardStyleInterpolator: ({ current, layouts }) => {
+	  return {
+		cardStyle: {
+		  transform: [
+			{
+			  translateX: current.progress.interpolate({
+				inputRange: [0, 1],
+				outputRange: [-layouts.screen.width, 0],
+			  }),
+			},
+		  ],
+		},
+	  };
+	},
+  };
 
 const Tab = createBottomTabNavigator();
-export const BottomTabs = () => {
+export const TabNavigation = () => {
 	return (
 		<Tab.Navigator>
 			<Tab.Screen
 				name="Home"
-				component={MealOptionPage}
+				component={HomeStack}
 				options={{
 					unmountOnBlur: true,
 					headerShown: false,
@@ -36,7 +56,7 @@ export const BottomTabs = () => {
 			/>
 			<Tab.Screen
 				name="Meals"
-				component={Meals}
+				component={MealStack}
 				options={{
 					unmountOnBlur: true,
 					headerShown: false,
@@ -63,8 +83,8 @@ export const BottomTabs = () => {
 				}}
 			/>
 			<Tab.Screen
-				name="Calendar"
-				component={MealOptionPage}
+				name="CalendarStack"
+				component={CalendarStack}
 				options={{
 					unmountOnBlur: true,
 					headerShown: false,
@@ -92,7 +112,7 @@ export const BottomTabs = () => {
 			/>
 			<Tab.Screen
 				name="Cart"
-				component={MealOptionPage}
+				component={MealDetails}
 				options={{
 					unmountOnBlur: true,
 					headerShown: false,
@@ -120,7 +140,7 @@ export const BottomTabs = () => {
 			/>
 			<Tab.Screen
 				name="Profile"
-				component={MealOptionPage}
+				component={MealDetails}
 				options={{
 					unmountOnBlur: true,
 					headerShown: false,
@@ -150,4 +170,4 @@ export const BottomTabs = () => {
 	);
 };
 
-export default BottomTabs;
+export default TabNavigation;
