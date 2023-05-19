@@ -63,9 +63,9 @@ public class User implements UserDetails{
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
     
-	@Transient
-    @NotEmpty(message="Please confirm password")
-	private String confirmPassword;
+	// @Transient
+    // @NotEmpty(message="Please confirm password")
+	// private String confirmPassword;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
