@@ -10,11 +10,7 @@ import {
     Pressable
 } from "react-native";
 
-import FloatingActionButton from "../components/FloatingActionButton";
-{
-	/* <ImageBackground source={{uri: "../images/splash-page/logo-and-background.png"}}> */
-}
-// const image = {uri: 'https://reactjs.org/logo-og.png'};
+import { horizontalScale, moderateScale, verticalScale } from '../themes/metric';
 
 const INPUT_RANGE_START = 0;
 const INPUT_RANGE_END = 1;
@@ -53,7 +49,7 @@ const SplashScreen = () => {
 	return (
 		<View style={styles.container} resizeMode="center">
 			<AnimatedImage
-				resizeMode="repeat"
+				resizeMode="cover"
 				style={[
 					styles.background,
 					{
@@ -73,6 +69,7 @@ const SplashScreen = () => {
 				<Image
 					style={styles.tinyLogo}
 					source={require("../images/splash-page/logo-4x.png")}
+					resizeMode="contain"
 				/>
 
                 <View style={{
@@ -107,10 +104,15 @@ const SplashScreen = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		justifyContent: 'center', 
+		alignItems: 'center'
 	},
 	content: {
+		flex: 1,
 		position: "absolute",
 		top: "15%",
+		// justifyContent: 'center', 
+		// alignItems: 'center'
 	},
 	image: {
 		flex: 1,
@@ -125,8 +127,10 @@ const styles = StyleSheet.create({
 		backgroundColor: "#0000000",
 	},
 	tinyLogo: {
-		width: 400,
-		height: 400 / 1.63,
+		// width: 400,
+		// height: 400 / 1.63,
+		height: verticalScale(250),
+        width: horizontalScale(300),
 	},
     button: {
         // alignSelf: "center",
@@ -155,8 +159,10 @@ const styles = StyleSheet.create({
         
     },
 	background: {
-		width: 1200,
-		height: 1800,
+		// width: 1200,
+		// height: 1800,
+		height: verticalScale(1500),
+        width: horizontalScale(1000),
 		top: 0,
 		transform: [
 			{
