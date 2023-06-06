@@ -484,7 +484,7 @@ export const MealDetails = ({ navigation }) => {
 			{item}
 		</ScrollView>
 
-		<FloatingActionButton text={ "Add To Calendar" } navigation={navigation} goTo={"AddToCalendar"} data={{}}></FloatingActionButton>
+		<FloatingActionButton text={ "Add To Calendar" } navigation={navigation} goTo={"AddToCalendar"} data={{}} positionFromTop={"88%"}></FloatingActionButton>
 		</>
 	)
 

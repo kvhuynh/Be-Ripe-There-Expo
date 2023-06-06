@@ -41,10 +41,6 @@ export const ModalPopup = (props) => {
   );
   return (
     <View style={styles.container}>
-      {/* <Button title="Snap To 90%" onPress={() => handleSnapPress(2)} /> */}
-      {/* <Button title="Snap To 50%" onPress={() => handleSnapPress(1)} /> */}
-      {/* <Button title="Fried Rice" onPress={() => handleSnapPress(0)} />
-      <Button title="Close" onPress={() => handleClosePress()} /> */}
       <BottomSheet
         ref={sheetRef}
         index={0}
@@ -58,11 +54,9 @@ export const ModalPopup = (props) => {
 
       >
         <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {/* {data.map(renderItem)} */}
             {props.test}
-
         </BottomSheetScrollView>
-        <FloatingActionButton text={ "Add To Calendar" }></FloatingActionButton>
+        <FloatingActionButton text={ "Add To Calendar" } positionFromTop={"88%"}></FloatingActionButton>
       </BottomSheet>
     </View>
   );

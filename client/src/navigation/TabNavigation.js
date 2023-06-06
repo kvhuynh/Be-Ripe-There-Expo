@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
 import { MealStack } from "../navigation/MealStack";
@@ -6,25 +8,28 @@ import { MealDetails } from "../views/MealDetails";
 import { CalendarStack } from "../navigation/CalendarStack"
 
 
-const leftToRightAnimation = {
-	cardStyleInterpolator: ({ current, layouts }) => {
-	  return {
-		cardStyle: {
-		  transform: [
-			{
-			  translateX: current.progress.interpolate({
-				inputRange: [0, 1],
-				outputRange: [-layouts.screen.width, 0],
-			  }),
-			},
-		  ],
-		},
-	  };
-	},
-  };
+// const leftToRightAnimation = {
+// 	cardStyleInterpolator: ({ current, layouts }) => {
+// 	  return {
+// 		cardStyle: {
+// 		  transform: [
+// 			{
+// 			  translateX: current.progress.interpolate({
+// 				inputRange: [0, 1],
+// 				outputRange: [-layouts.screen.width, 0],
+// 			  }),
+// 			},
+// 		  ],
+// 		},
+// 	  };
+// 	},
+//   };
 
 const Tab = createBottomTabNavigator();
 export const TabNavigation = () => {
+
+
+
 	return (
 		<Tab.Navigator>
 			<Tab.Screen

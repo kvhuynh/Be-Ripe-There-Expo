@@ -129,16 +129,12 @@ export const Card = (props) => {
 			<View
 				style={{
 					height: "18%",
-					// flexDirection: "row",
-					// alignSelf: "flex-end"
-					// alignSelf: "center",
 					alignItems: "center",
 				}}
 			>
 				<Text
 					style={{
-						// alignSelf: "center",
-						// justifyContent: "center",
+
 						fontSize: 15,
 						fontWeight: "bold",
 						flex: 1,

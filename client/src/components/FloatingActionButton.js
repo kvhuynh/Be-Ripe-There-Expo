@@ -11,7 +11,7 @@ export const FloatingActionButton = (props) => {
 				// marginRight: 50,
 				// marginLeft: 50,
 				// marginTop: "20%",
-				top: "88%",
+				top: props.positionFromTop,
 				// left: "25%",
                 alignSelf: "center",
                 // padding: 20,

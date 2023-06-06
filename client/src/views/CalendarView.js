@@ -12,10 +12,9 @@ export const CalendarView = ({ navigation }) => {
 	let screenWidth = Dimensions.get("window").width;
     console.log(moment().format("dddd MMMM Do YYYY"))
 
-    useEffect(() => {
+    // useEffect(() => {
         
-    })
-
+    // })
 
 	return (
         <Animated.View

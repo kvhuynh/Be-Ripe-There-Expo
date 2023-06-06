@@ -22,11 +22,6 @@ export const MealStack = () => {
                 ></Stack.Screen>
 
             </Stack.Group>
-            {/* <Stack.Screen
-                    name="MealDetails"
-                    component={MealDetails}
-                    options={{headerShown:false}}
-                ></Stack.Screen> */}
 		</Stack.Navigator>
 	);
 };

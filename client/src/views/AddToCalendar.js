@@ -60,10 +60,13 @@ export const AddToCalendar = ({ navigation }) => {
 						}}
 						// onDayPress={({dateString}) => console.log(dateString)}
 						minDate={Date()}
-						onDayPress={({ date }) =>
+						onDayPress={({ date }) => {
+							console.log(moment(date).format("DD/MM/YYYY"));
+						
 							navigation.navigate("SelectDate", {
 								date: moment().format("dddd MMMM Do YYYY"),
 							})
+						}
 						}
 						markedDates={{
 							"2023-05-16": {
@@ -136,6 +139,7 @@ export const SelectDate = (props) => {
 				navigation={props.navigation}
 				goTo={"CalendarView"}
 				text={"Add To Calendar"}
+				positionFromTop={"88%"}
 			></FloatingActionButton>
 		</>
 	);
