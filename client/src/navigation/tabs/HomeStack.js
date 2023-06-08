@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Home } from "./../views/Home";
+import { Home } from "../../views/Home";
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {

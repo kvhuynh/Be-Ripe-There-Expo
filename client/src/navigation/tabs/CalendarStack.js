@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CalendarView from "../views/CalendarView";
-import { AddToCalendar, SelectDate } from "./../views/AddToCalendar";
+import CalendarView from "../../views/CalendarView";
+import { AddToCalendar, SelectDate } from "../../views/AddToCalendar";
 
 const Stack = createNativeStackNavigator();
 // TODO: make the animation transition smoothly from add to calendar to calendar view

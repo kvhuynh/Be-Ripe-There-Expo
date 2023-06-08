@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
 	View,
 	ImageBackground,
@@ -7,24 +7,33 @@ import {
 	Animated,
 	Easing,
 	Image,
-    Pressable
+	Pressable,
+	TouchableOpacity,
 } from "react-native";
 
-import { horizontalScale, moderateScale, verticalScale } from '../themes/metric';
+import FloatingActionButton from "../components/FloatingActionButton";
+
+import {
+	horizontalScale,
+	moderateScale,
+	verticalScale,
+} from "../themes/metric";
 
 const INPUT_RANGE_START = 0;
 const INPUT_RANGE_END = 1;
 const OUTPUT_RANGE_START = -281;
 const OUTPUT_RANGE_END = 0;
-// const ANIMATION_TO_VALUE = 1;
 const ANIMATION_TO_VALUE = 1;
-
-// const ANIMATION_DURATION = 25000;
 const ANIMATION_DURATION = 30000;
 
-const SplashScreen = () => {
+interface Props {
+	navigation?: Navigator
+}
+
+export const SplashScreen: React.FC<Props> = ({ navigation }) => {
 	const initialValue = 0;
 	const translateValue = useRef(new Animated.Value(initialValue)).current;
+	
 
 	useEffect(() => {
 		const translate = () => {
@@ -71,32 +80,39 @@ const SplashScreen = () => {
 					source={require("../images/splash-page/logo-4x.png")}
 					resizeMode="contain"
 				/>
+				
+				<View
+					style={{
+						marginTop: "25%",
+						padding: 40,
+						justifyContent: "space-around",
+						flexDirection: "column",
+						height: "50%"
+					}}
+				>
+					<Text
+						style={{
+							color: "#FFFFFF",
+							fontSize: "30px",
+							fontWeight: "bold",
+							textAlign: "center",
+						}}
+					>
+						Simple Ways to Find Nutrition
+					</Text>
 
-                <View style={{
-                        marginTop: "25%",
-                        padding: 40,
-                        justifyContent: "space-between"
-                        // flex: 1
-                        // textAlign: "center"
-                }}>
-                    <Text style={{
-                        color: "#FFFFFF",
-                        fontSize: "30px",
-                        fontWeight: "bold",
-                        textAlign: "center"
-                        
-                    }}>Simple Ways to Find Nutrition</Text>
-
-                    <Pressable styles={styles.button}>
-                    <Text style={styles.buttonText}>Start Cooking</Text>
-                    </Pressable>
-
-                    <Text style ={{
-                        textAlign: "center",
-                        color: "#FFFFFF",
-                    }}>Already a member? Sign In</Text>
-                </View>
-
+					<TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Register")}>
+						<Text style={styles.buttonText}>Start Cooking</Text>
+					</TouchableOpacity>
+					<Text
+						style={{
+							textAlign: "center",
+							color: "#FFFFFF",
+						}}
+					>
+						Already a member? <Text style={{color: "#3B9744"}} onPress={() => navigation.navigate("Login")} >Sign in</Text>
+					</Text>
+				</View>
 			</View>
 		</View>
 	);
@@ -104,14 +120,14 @@ const SplashScreen = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center', 
-		alignItems: 'center'
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	content: {
 		flex: 1,
 		position: "absolute",
 		top: "15%",
-		// justifyContent: 'center', 
+		// justifyContent: 'center',
 		// alignItems: 'center'
 	},
 	image: {
@@ -127,42 +143,35 @@ const styles = StyleSheet.create({
 		backgroundColor: "#0000000",
 	},
 	tinyLogo: {
-		// width: 400,
-		// height: 400 / 1.63,
-		height: verticalScale(250),
-        width: horizontalScale(300),
+		marginLeft: 20,
+		height: verticalScale(275),
+		width: horizontalScale(300),
 	},
-    button: {
-        // alignSelf: "center",
-        // width: "50%",
-        // paddingTop: 20,
-        // paddingBottom: 20,
-        // // backgroundColor: "#3B9744",
-        // borderRadius: 20,
-        // borderWidth: 1,
-        // borderColor: "#FFFFFF",
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 50,
-        elevation: 3,
-        backgroundColor: 'black',
-    },
-    buttonText: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
-        letterSpacing: 0.25,
-        color: 'white',
-        backgroundColor: "#3B9744",
-        
-    },
+	button: {
+		alignSelf: "center",
+		width: "85%",
+		paddingTop: 20,
+		paddingBottom: 20,
+		backgroundColor: "#3B9744",
+		borderRadius: 20,
+		borderWidth: 1,
+		borderColor: "#3B9744",
+		// marginTop: 40
+	},
+	buttonText: {
+		backgroundColor: "#3B9744",
+		color: "#FFFFFF",
+		textAlign: "center",
+		paddingLeft: 10,
+		paddingRight: 10,
+		fontSize: 15,
+		fontWeight: "bold",
+	},
 	background: {
 		// width: 1200,
 		// height: 1800,
 		height: verticalScale(1500),
-        width: horizontalScale(1000),
+		width: horizontalScale(1000),
 		top: 0,
 		transform: [
 			{

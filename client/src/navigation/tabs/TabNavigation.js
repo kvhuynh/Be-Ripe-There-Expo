@@ -2,34 +2,14 @@ import { useEffect } from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
-import { MealStack } from "../navigation/MealStack";
-import { HomeStack } from "../navigation/HomeStack"
-import { MealDetails } from "../views/MealDetails";
-import { CalendarStack } from "../navigation/CalendarStack"
-
-
-// const leftToRightAnimation = {
-// 	cardStyleInterpolator: ({ current, layouts }) => {
-// 	  return {
-// 		cardStyle: {
-// 		  transform: [
-// 			{
-// 			  translateX: current.progress.interpolate({
-// 				inputRange: [0, 1],
-// 				outputRange: [-layouts.screen.width, 0],
-// 			  }),
-// 			},
-// 		  ],
-// 		},
-// 	  };
-// 	},
-//   };
+import { MealStack } from "./MealStack";
+import { HomeStack } from "./HomeStack"
+import { MealDetails } from "../../views/MealDetails";
+import { CalendarStack } from "./CalendarStack"
 
 const Tab = createBottomTabNavigator();
 export const TabNavigation = () => {
-
-
-
+	
 	return (
 		<Tab.Navigator>
 			<Tab.Screen
@@ -44,17 +24,17 @@ export const TabNavigation = () => {
 							<>
 								<Image
 									style={{ width: 25, height: 25 }}
-									source={require("../images/tab-navigation-icons/selected/home-selected.png")}
+									source={require("../../images/tab-navigation-icons/selected/home-selected.png")}
 								/>
 								<Image
 									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
-									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+									source={require("../../images/tab-navigation-icons/selected/selected-underline.png")}
 								/>
 							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/unselected/home-unselected.png")}
+								source={require("../../images/tab-navigation-icons/unselected/home-unselected.png")}
 							/>
 						),
 				}}
@@ -71,18 +51,18 @@ export const TabNavigation = () => {
 							<>
 								<Image
 									style={{ width: 25, height: 25 }}
-									source={require("../images/tab-navigation-icons/selected/meals-selected.png")}
+									source={require("../../images/tab-navigation-icons/selected/meals-selected.png")}
 								/>
 								<Image
 									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
 
-									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+									source={require("../../images/tab-navigation-icons/selected/selected-underline.png")}
 								/>
 							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/unselected/meals-unselected.png")}
+								source={require("../../images/tab-navigation-icons/unselected/meals-unselected.png")}
 							/>
 						),
 				}}
@@ -99,18 +79,18 @@ export const TabNavigation = () => {
 							<>
 								<Image
 									style={{ width: 25, height: 25 }}
-									source={require("../images/tab-navigation-icons/selected/calendar-selected.png")}
+									source={require("../../images/tab-navigation-icons/selected/calendar-selected.png")}
 								/>
 								<Image
 									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
 
-									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+									source={require("../../images/tab-navigation-icons/selected/selected-underline.png")}
 								/>
 							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/unselected/calendar-unselected.png")}
+								source={require("../../images/tab-navigation-icons/unselected/calendar-unselected.png")}
 							/>
 						),
 				}}
@@ -127,18 +107,18 @@ export const TabNavigation = () => {
 							<>
 								<Image
 									style={{ width: 25, height: 25 }}
-									source={require("../images/tab-navigation-icons/selected/cart-selected.png")}
+									source={require("../../images/tab-navigation-icons/selected/cart-selected.png")}
 								/>
 								<Image
 									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
 
-									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+									source={require("../../images/tab-navigation-icons/selected/selected-underline.png")}
 								/>
 							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/unselected/cart-unselected.png")}
+								source={require("../../images/tab-navigation-icons/unselected/cart-unselected.png")}
 							/>
 						),
 				}}
@@ -155,18 +135,18 @@ export const TabNavigation = () => {
 							<>
 								<Image
 									style={{ width: 25, height: 25 }}
-									source={require("../images/tab-navigation-icons/selected/user-selected.png")}
+									source={require("../../images/tab-navigation-icons/selected/user-selected.png")}
 								/>
 								<Image
 									style={{ width: 65, height: 5, marginTop: "5%", marginLeft: "2%" }}
 
-									source={require("../images/tab-navigation-icons/selected/selected-underline.png")}
+									source={require("../../images/tab-navigation-icons/selected/selected-underline.png")}
 								/>
 							</>
 						) : (
 							<Image
 								style={{ width: 25, height: 25 }}
-								source={require("../images/tab-navigation-icons/unselected/user-unselected.png")}
+								source={require("../../images/tab-navigation-icons/unselected/user-unselected.png")}
 							/>
 						),
 				}}
