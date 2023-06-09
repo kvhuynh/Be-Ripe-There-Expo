@@ -7,7 +7,6 @@ import SplashScreen from "./src/views/SplashScreen";
 import MainNavigation from "./src/navigation/MainNavigation"
 
 const Stack = createNativeStackNavigator();
-
 export const App = () => {
 
   // useEffect(() => {

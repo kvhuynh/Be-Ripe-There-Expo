@@ -1,13 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen from "../views/SplashScreen";
+import { LoginRegisterStack } from "./login-registration/LoginRegisterNavigation";
 import TabNavigation from "./tabs/TabNavigation";
-import {LoginRegisterStack} from "./login-registration/LoginRegisterStack"
-import Header from "../components/Header"
-const Stack = createNativeStackNavigator();
-
 export const MainNavigation: React.FC = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -18,9 +14,7 @@ export const MainNavigation: React.FC = () => {
 
     return(
     <NavigationContainer>
-        <SplashScreen></SplashScreen>
-        {/* <Header name="tesdfsdfsdfsdfsdfsdfst"></Header> */}
-        {/* {isLoggedIn ? <TabNavigation></TabNavigation>: <LoginRegisterStack></LoginRegisterStack>} */}
+        {isLoggedIn ? <TabNavigation></TabNavigation>: <LoginRegisterStack></LoginRegisterStack>}
     </NavigationContainer>
     )
 }

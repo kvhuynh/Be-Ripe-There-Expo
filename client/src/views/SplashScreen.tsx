@@ -1,3 +1,6 @@
+import { NativeStackNavigationProp, } from "@react-navigation/native-stack";
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 import { useEffect, useRef, useState } from "react";
 import {
 	View,
@@ -12,6 +15,7 @@ import {
 } from "react-native";
 
 import FloatingActionButton from "../components/FloatingActionButton";
+import { RootStackParamList } from "../navigation/login-registration/LoginRegisterNavigation";
 
 import {
 	horizontalScale,
@@ -26,27 +30,33 @@ const OUTPUT_RANGE_END = 0;
 const ANIMATION_TO_VALUE = 1;
 const ANIMATION_DURATION = 30000;
 
-interface Props {
-	navigation?: Navigator
-}
+type Props = NativeStackScreenProps<RootStackParamList, "SplashScreen">
 
-export const SplashScreen: React.FC<Props> = ({ navigation }) => {
+
+export const SplashScreen: React.FC<Props> = (Props) => {
+// export const SplashScreen= ({ navigation }: any) => {
+
+	// const navigation = useNavigation<RootStackParamList>();
 	const initialValue = 0;
 	const translateValue = useRef(new Animated.Value(initialValue)).current;
 	
-
 	useEffect(() => {
-		const translate = () => {
-			translateValue.setValue(initialValue);
-			Animated.timing(translateValue, {
-				toValue: ANIMATION_TO_VALUE,
-				duration: ANIMATION_DURATION,
-				easing: Easing.linear,
-				useNativeDriver: true,
-			}).start(() => translate());
-		};
-		translate();
-	}, [translateValue]);
+		console.log(Props);
+		
+	})
+
+	// useEffect(() => {
+	// 	const translate = () => {
+	// 		translateValue.setValue(initialValue);
+	// 		Animated.timing(translateValue, {
+	// 			toValue: ANIMATION_TO_VALUE,
+	// 			duration: ANIMATION_DURATION,
+	// 			easing: Easing.linear,
+	// 			useNativeDriver: true,
+	// 		}).start(() => translate());
+	// 	};
+	// 	translate();
+	// }, [translateValue]);
 
 	const translateAnimation = translateValue.interpolate({
 		inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
@@ -55,8 +65,10 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
 
 	const AnimatedImage = Animated.createAnimatedComponent(ImageBackground);
 
-	return (
-		<View style={styles.container} resizeMode="center">
+	// return (
+	// 	<View style={styles.container} resizeMode="center">
+	return(
+		<View style={styles.container}>
 			<AnimatedImage
 				resizeMode="cover"
 				style={[
@@ -93,7 +105,7 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
 					<Text
 						style={{
 							color: "#FFFFFF",
-							fontSize: "30px",
+							fontSize: 30,
 							fontWeight: "bold",
 							textAlign: "center",
 						}}
@@ -101,7 +113,7 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
 						Simple Ways to Find Nutrition
 					</Text>
 
-					<TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Register")}>
+					<TouchableOpacity style={styles.button} onPress={() => Props.navigation.navigate("Register")}>
 						<Text style={styles.buttonText}>Start Cooking</Text>
 					</TouchableOpacity>
 					<Text
@@ -110,7 +122,7 @@ export const SplashScreen: React.FC<Props> = ({ navigation }) => {
 							color: "#FFFFFF",
 						}}
 					>
-						Already a member? <Text style={{color: "#3B9744"}} onPress={() => navigation.navigate("Login")} >Sign in</Text>
+						Already a member? <Text style={{color: "#3B9744"}} onPress={() => Props.navigation.navigate("Login")} >Sign in</Text>
 					</Text>
 				</View>
 			</View>
@@ -153,7 +165,7 @@ const styles = StyleSheet.create({
 		paddingTop: 20,
 		paddingBottom: 20,
 		backgroundColor: "#3B9744",
-		borderRadius: 20,
+		borderRadius: 10,
 		borderWidth: 1,
 		borderColor: "#3B9744",
 		// marginTop: 40
