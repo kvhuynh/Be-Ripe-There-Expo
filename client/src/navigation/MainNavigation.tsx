@@ -14,7 +14,8 @@ export const MainNavigation: React.FC = () => {
 
     return(
     <NavigationContainer>
-        {isLoggedIn ? <TabNavigation></TabNavigation>: <LoginRegisterStack></LoginRegisterStack>}
+        <LoginRegisterStack></LoginRegisterStack>
+        {/* {isLoggedIn ? <TabNavigation></TabNavigation>: <LoginRegisterStack></LoginRegisterStack>} */}
     </NavigationContainer>
     )
 }

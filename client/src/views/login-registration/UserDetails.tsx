@@ -1,69 +1,90 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/login-registration/LoginRegisterNavigation";
-import { Header } from "../../components/Header"
+import { Header } from "../../components/Header";
 
-import { View, ScrollView, Text, StyleSheet, Dimensions , TextInput, TouchableOpacity} from "react-native";
+import {
+	View,
+	ScrollView,
+	Text,
+	StyleSheet,
+	Dimensions,
+	TextInput,
+	TouchableOpacity,
+} from "react-native";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Register">;
+type Props = NativeStackScreenProps<RootStackParamList, "UserDetails">;
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
 
 export const UserDetails: React.FC<Props> = (Props) => {
-    return(
-        <ScrollView style={styles.container}>
-        <Header name="Enter Information" ></Header> 
-        <Header name="Create an Account"></Header>
-        <View style={styles.inputGroup}>
-            <View>
-                <Text style={styles.inputTitle}>First Name:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter First Name"
-                    // onChangeText={(e: string) => handleChange("firstName", e)}
-                />
-            </View>
-            <View style={styles.inputBox}>
-                <Text style={styles.inputTitle}>Last Name:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter Last Name"
-                    // onChangeText={(e: string) => handleChange("lastName", e)}
-                />
-            </View>
-            <View style={styles.inputBox}>
-                <Text style={styles.inputTitle}>Email:</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter Email"
-                    // onChangeText={(e: string) => handleChange("email", e)}
-                />
-            </View>
-            <View style={styles.inputBox}>
-                <Text style={styles.inputTitle}>Password:</Text>
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    placeholder="Enter Password"
-                    // onChangeText={(e: string) => handleChange("password", e)}
-                />
-            </View>
-            <View style={styles.inputBox}>
-                <Text style={styles.inputTitle}>Confirm Password:</Text>
-                <TextInput
-                    style={styles.input}
-                    secureTextEntry={true}
-                    placeholder="Enter Confirm Password"
-                    // onChangeText={(e: string) => handleChange("confirmPassword", e)}
-                />
-            </View>
-        </View>
-        <TouchableOpacity style={styles.button} >
-            <Text style={styles.buttonText}>Continue</Text>
-        </TouchableOpacity>
+	return (
+		<ScrollView style={styles.container}>
+			<Header name="Enter Information"></Header>
+			<View style={styles.inputGroup}>
+				<View>
+					<Text style={styles.inputTitle}>Age:</Text>
+					<TextInput
+						style={[styles.input, { width: 90 }]}
+						placeholder="Enter Age"
+						// onChangeText={(e: string) => handleChange("firstName", e)}
+					/>
+				</View>
+				<View style={styles.inputBox}>
+					<Text style={styles.inputTitle}>Weigh (lbs):</Text>
+					<TextInput
+						style={[styles.input, { width: 90 }]}
+						placeholder="Enter Weight"
+						// onChangeText={(e: string) => handleChange("lastName", e)}
+					/>
+				</View>
+				<View style={styles.inputBox}>
+					<Text style={styles.inputTitle}>Card Details (Optional):</Text>
+					<TextInput
+						style={styles.input}
+						placeholder="Enter Card Number"
+						// onChangeText={(e: string) => handleChange("email", e)}
+					/>
+				</View>
+				<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+					
+					<View style={styles.inputBox}>
+						<Text style={styles.inputTitle}>Expiration Date:</Text>
+						<View style={{flexDirection: "row"}}>
+							<TextInput
+								style={[styles.input, { width: 80, marginRight: 20 }]}
+								secureTextEntry={true}
+								placeholder="00"
+								// onChangeText={(e: string) => handleChange("password", e)}
+							/>
+							<TextInput
+								style={[styles.input, { width: 80}]}
+								secureTextEntry={true}
+								placeholder="00"
+								// onChangeText={(e: string) => handleChange("password", e)}
+							/>
+						</View>
+					</View>
+					<View style={styles.inputBox}>
+						<Text style={styles.inputTitle}>CV Code:</Text>
+						<TextInput
+								style={[styles.input, { width: 80}]}
 
-    </ScrollView>
-    )
-}
+							secureTextEntry={true}
+							placeholder="00"
+							// onChangeText={(e: string) => handleChange("confirmPassword", e)}
+						/>
+					</View>
+				</View>
+			</View>
+			<TouchableOpacity style={styles.button} onPress={() => Props.navigation.navigate("SelectGoal", {
+				name: "Choose Your Goals",
+				firstChoice: true,
+			})}>
+				<Text style={styles.buttonText}>Continue</Text>
+			</TouchableOpacity>
+		</ScrollView>
+	);
+};
 
 const styles = StyleSheet.create({
 	container: {
@@ -94,6 +115,11 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		borderColor: "#C1C1C1",
 	},
+
+	// cardInput: {
+	// 	width: 
+	// },
+
 	button: {
 		alignSelf: "center",
 		width: "85%",
@@ -116,30 +142,6 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 
-	line: {
-		backgroundColor: "#8C8C8C",
-		height: 1,
-		flex: 1,
-		alignSelf: "center",
-	},
-
-	lineText: {
-		alignSelf: "center",
-		paddingHorizontal: 5,
-		fontSize: 15,
-		color: "#8C8C8C",
-	},
-
-	thirdPartyLogo: {
-		height: 50,
-		width: 50,
-		padding: 5,
-		borderRadius: 10,
-		shadowColor: "#171717",
-		shadowOffset: { width: -2, height: 4 },
-		shadowOpacity: 0.2,
-		shadowRadius: 3,
-	},
 });
 
 export default UserDetails;
