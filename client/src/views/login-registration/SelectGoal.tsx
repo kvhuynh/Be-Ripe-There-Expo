@@ -4,6 +4,8 @@ import { RootStackParamList } from "../../navigation/login-registration/LoginReg
 
 import { Header } from "../../components/Header";
 
+import { CommonActions } from '@react-navigation/native';
+
 import {
 	View,
 	ScrollView,
@@ -25,7 +27,13 @@ export const SelectGoal: React.FC<Props> = (Props) => {
         <ScrollView style={styles.container}>
             <Header name={Props.route.params.name}></Header>
             <View style={styles.inputGroup}>
-                <TouchableOpacity onPress={() => Props.navigation.replace("Login")}>
+                <TouchableOpacity onPress={() => Props.navigation.dispatch(
+                      CommonActions.reset({
+                        index: 0,
+                        routes: [{ name: "TabNavigation" }]
+                      })
+                )}>
+
                     {
                         Props.route.params.firstChoice ?
                         <Image source={require("../../images/goals/relaxed/relaxed.png")} 
@@ -34,7 +42,13 @@ export const SelectGoal: React.FC<Props> = (Props) => {
                             style={styles.image}></Image>
                     }
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => !Props.route.params.firstChoice ? Props.navigation.replace("Login") : Props.navigation.push("SelectGoal", {firstChoice: false, name: "Training"})} >
+                <TouchableOpacity onPress={() => !Props.route.params.firstChoice ? 
+                Props.navigation.dispatch(
+                      CommonActions.reset({
+                        index: 0,
+                        routes: [{ name: "TabNavigation" }]
+                      })
+                ) : Props.navigation.push("SelectGoal", {firstChoice: false, name: "Training"})} >
                     {
                         Props.route.params.firstChoice ? 
                         <Image source={require("../../images/goals/training/training.png")} 

@@ -16,6 +16,7 @@ import { createUser } from "../../services/internalApiService";
 import { Header } from "../../components/Header";
 import { RootStackParamList } from "../../navigation/login-registration/LoginRegisterNavigation";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { CommonActions } from '@react-navigation/native';
 
 import * as Facebook from "expo-auth-session/providers/facebook";
 import * as Google from "expo-auth-session/providers/google";
@@ -89,7 +90,12 @@ export const Register: React.FC<Props> = (Props) => {
 				);
 			};
 			persistAuth();
-			Props.navigation.navigate("Login");
+			Props.navigation.dispatch(
+				CommonActions.reset({
+				  index: 0,
+				  routes: [{ name: "TabNavigation" }]
+				})
+		  )
 		}
 	}, [googleResponse]);
 
