@@ -3,7 +3,7 @@ import { useEffect, useState } from "react-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigation from "./src/navigation/tabs/TabNavigation"
-import SplashScreen from "./src/views/SplashScreen";
+import SplashScreen from "./src/views/login-registration/SplashScreen";
 import MainNavigation from "./src/navigation/MainNavigation"
 
 const Stack = createNativeStackNavigator();

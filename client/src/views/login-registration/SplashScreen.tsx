@@ -1,27 +1,24 @@
-import { NativeStackNavigationProp, } from "@react-navigation/native-stack";
+
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
-	View,
-	ImageBackground,
-	Text,
-	StyleSheet,
 	Animated,
-	Easing,
 	Image,
-	Pressable,
+	ImageBackground,
+	StyleSheet,
+	Text,
 	TouchableOpacity,
+	View
 } from "react-native";
 
-import FloatingActionButton from "../components/FloatingActionButton";
-import { RootStackParamList } from "../navigation/login-registration/LoginRegisterNavigation";
+
+
+import { RootStackParamList } from "../../navigation/login-registration/LoginRegisterNavigation";
 
 import {
 	horizontalScale,
-	moderateScale,
-	verticalScale,
-} from "../themes/metric";
+	verticalScale
+} from "../../themes/metric";
 
 const INPUT_RANGE_START = 0;
 const INPUT_RANGE_END = 1;
@@ -34,17 +31,10 @@ type Props = NativeStackScreenProps<RootStackParamList, "SplashScreen">
 
 
 export const SplashScreen: React.FC<Props> = (Props) => {
-// export const SplashScreen= ({ navigation }: any) => {
 
-	// const navigation = useNavigation<RootStackParamList>();
 	const initialValue = 0;
 	const translateValue = useRef(new Animated.Value(initialValue)).current;
 	
-	useEffect(() => {
-		console.log(Props);
-		
-	})
-
 	// useEffect(() => {
 	// 	const translate = () => {
 	// 		translateValue.setValue(initialValue);
@@ -84,12 +74,12 @@ export const SplashScreen: React.FC<Props> = (Props) => {
 						],
 					},
 				]}
-				source={require("../images/splash-page/splash-image.png")}
+				source={require("../../images/splash-page/splash-image.png")}
 			/>
 			<View style={styles.content}>
 				<Image
 					style={styles.tinyLogo}
-					source={require("../images/splash-page/logo-4x.png")}
+					source={require("../../images/splash-page/logo-4x.png")}
 					resizeMode="contain"
 				/>
 				

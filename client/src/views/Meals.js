@@ -166,7 +166,8 @@ export const Meals = ({ navigation }) => {
 										width: "100%",
 										height: "80%",
 									}}
-									source={require("../images/istockphoto-672810138-612x612.png")}
+									// source={require("../images/istockphoto-672810138-612x612.png")}
+									
 								></Image>
 								<View
 									style={{
