@@ -13,6 +13,10 @@
  <img alt="Be Ripe There logo">
 </picture>
 
+<picture>
+    <source media="(prefers-color-scheme: light)" srcset="./client/src/images/splash-page/light-logo-4x.png">
+    <img alt="Be Ripe There logo">
+</picture>
 
 
 This repository contains the code and documentation for a personal project that aims to create an app serving as a healthy recipe finder and nutrition tracker. The project involves collaboration with a Carl Arenas, a UX designer to ensure an intuitive user experience.
