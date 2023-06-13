@@ -1,6 +1,6 @@
 # Be Ripe There
 
-![alt text]("./../src/images/splash-page/logo-4x.png "Title")
+![alt text]("/../client/src/images/splash-page/logo-4x.png "Title")
 
 
 This repository contains the code and documentation for a personal project that aims to create an app serving as a healthy recipe finder and nutrition tracker. The project involves collaboration with a Carl Arenas, a UX designer to ensure an intuitive user experience.
@@ -17,8 +17,9 @@ This repository contains the code and documentation for a personal project that 
 git clone https://github.com/kvhuynh/Be-Ripe-There
 ```
 
-2. Install the necessary dependencies:
+2. Move into the proper directory and install the necessary dependencies:
 ``` shell
+cd client
 npm install
 ```
 
