@@ -10,6 +10,7 @@
 <picture>
  <source media="(prefers-color-scheme: dark)" srcset="./client/src/images/splash-page/logo-4x.png">
  <source media="(prefers-color-scheme: light)" srcset="./client/src/images/splash-page/light-logo-4x.png">
+ <img alt="Be Ripe There logo">
 </picture>
 
 
