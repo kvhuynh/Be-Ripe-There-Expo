@@ -2,7 +2,7 @@
 
 ![alt text]("/../client/src/images/splash-page/logo-4x.png#gh-dark-mode-only "Title")
 <!-- ![alt text]("/../client/src/images/splash-page/light-logo-4x.png#gh-light-mode-only "Title") -->
-![alt text]("/../client/src/images/splash-page/logo-1x.png "Title")
+![alt text]("/../client/src/images/splash-page/light-logo-4x.png#gh-light-mode-only "Title")
 
 
 
