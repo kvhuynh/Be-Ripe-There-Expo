@@ -2,10 +2,10 @@
 
 <!-- ![logo for dark mode]("/../client/src/images/splash-page/logo-4x.png#gh-dark-mode-only "Title") -->
 
-![logo for dark mode](/client/src/images/splash-page/logo-4x.png.#gh-dark-mode-only)
+![logo for dark mode](./client/src/images/splash-page/logo-4x.png#gh-dark-mode-only)
 <!-- ![logo for light mode]("/../client/src/images/splash-page/light-logo-4x.png#gh-light-mode-only "Title") -->
 
-![logo for light mode](/client/src/images/splash-page/light-logo-4x.png#gh-light-mode-only)
+![logo for light mode](./client/src/images/splash-page/light-logo-4x.png#gh-dark-mode-only)
 
 
 
