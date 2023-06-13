@@ -1,6 +1,8 @@
 # Be Ripe There
 
 ![alt text]("/../client/src/images/splash-page/logo-4x.png#gh-dark-mode-only "Title")
+![alt text]("/../client/src/images/splash-page/light-logo-4x.png#gh-light-mode-only "Title")
+
 
 
 This repository contains the code and documentation for a personal project that aims to create an app serving as a healthy recipe finder and nutrition tracker. The project involves collaboration with a Carl Arenas, a UX designer to ensure an intuitive user experience.
