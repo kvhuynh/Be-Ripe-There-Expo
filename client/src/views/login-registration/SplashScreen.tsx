@@ -3,6 +3,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useRef } from "react";
 import {
 	Animated,
+	Easing,
 	Image,
 	ImageBackground,
 	StyleSheet,
@@ -35,18 +36,18 @@ export const SplashScreen: React.FC<Props> = (Props) => {
 	const initialValue = 0;
 	const translateValue = useRef(new Animated.Value(initialValue)).current;
 	
-	// useEffect(() => {
-	// 	const translate = () => {
-	// 		translateValue.setValue(initialValue);
-	// 		Animated.timing(translateValue, {
-	// 			toValue: ANIMATION_TO_VALUE,
-	// 			duration: ANIMATION_DURATION,
-	// 			easing: Easing.linear,
-	// 			useNativeDriver: true,
-	// 		}).start(() => translate());
-	// 	};
-	// 	translate();
-	// }, [translateValue]);
+	useEffect(() => {
+		const translate = () => {
+			translateValue.setValue(initialValue);
+			Animated.timing(translateValue, {
+				toValue: ANIMATION_TO_VALUE,
+				duration: ANIMATION_DURATION,
+				easing: Easing.linear,
+				useNativeDriver: true,
+			}).start(() => translate());
+		}; 
+		translate();
+	}, [translateValue]);
 
 	const translateAnimation = translateValue.interpolate({
 		inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
