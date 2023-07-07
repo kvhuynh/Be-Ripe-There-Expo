@@ -35,6 +35,7 @@ export interface UserState {
 	email: string;
 	password: string;
 	confirmPassword: string;
+	role: string,
 }
 
 interface ErrorState {
@@ -52,7 +53,7 @@ const initialUserState = {
 	email: "",
 	password: "",
 	confirmPassword: "",
-	errors: false
+	role: "USER",
 };
 
 const initialErrorState = {
@@ -60,7 +61,8 @@ const initialErrorState = {
 	lastNameError: "",
 	emailError: "",
 	passwordError: "",
-	confirmPasswordError: ""
+	confirmPasswordError: "",
+	errors: false
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
@@ -214,7 +216,7 @@ export const Register: React.FC<Props> = (Props) => {
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
 		createUser(userInformation)
-			.then((response) => {
+			.then((response: any) => {
 				if (response.access_token === null) {
 					// console.log(response.error);
 					setUserErrors(response.error);

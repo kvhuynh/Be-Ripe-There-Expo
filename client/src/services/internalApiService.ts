@@ -44,5 +44,6 @@ export const createUser = async (userData: UserState) => {
 export const loginUser = async (userData: LoginState) => {
     
     console.log(userData);
-    
+    const res = await http.post("/authenticate", userData);
+    return res.data
 }

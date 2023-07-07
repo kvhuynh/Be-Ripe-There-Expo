@@ -64,6 +64,7 @@ public class User implements UserDetails{
     @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
     private String password;
 
+	@Transient
     @NotEmpty(message="Please confirm password")
 	private String confirmPassword;
     
@@ -112,7 +113,7 @@ public class User implements UserDetails{
 		return password;
 	}
 
-	
+
 	public String getConfirmPassword() {
 		return confirmPassword;
 	}

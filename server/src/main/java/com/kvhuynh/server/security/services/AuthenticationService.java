@@ -2,7 +2,9 @@ package com.kvhuynh.server.security.services;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +20,6 @@ import com.kvhuynh.server.repositories.UserRepository;
 import com.kvhuynh.server.security.config.JwtService;
 import com.kvhuynh.server.security.models.AuthenticationRequest;
 import com.kvhuynh.server.security.models.AuthenticationResponse;
-import com.kvhuynh.server.security.models.RegisterRequest;
 import com.kvhuynh.server.security.models.Token;
 import com.kvhuynh.server.security.models.enums.TokenType;
 import com.kvhuynh.server.security.repositories.TokenRepository;
@@ -83,17 +84,31 @@ public class AuthenticationService {
 
   }
 
-  public AuthenticationResponse authenticate(AuthenticationRequest request, HttpSession session) {
 
-    authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(
-            request.getEmail(),
-            request.getPassword()
-        )
-    );
+  public AuthenticationResponse authenticate(AuthenticationRequest request, HttpSession session, BindingResult result) {
 
-    var user = userRepository.findByEmail(request.getEmail())
-        .orElseThrow();
+    // authenticationManager.authenticate(
+    //     new UsernamePasswordAuthenticationToken(
+    //         request.getEmail(),
+    //         request.getPassword()
+    //     )
+    // );    
+
+    // var user = userRepository.findByEmail(request.getEmail()).orElseThrow(null);
+
+        Optional<User> potentialUser = userRepository.findByEmail(request.getEmail());
+        if (!potentialUser.isPresent()) {
+          result.rejectValue("email", "Invalid", "Invalid Credentials");
+          return null;
+        }
+
+        User testUser = potentialUser.get();
+        if (!BCrypt.checkpw(request.getPassword(), testUser.getPassword())) {
+          result.rejectValue("password", "Invalid", "Invalid Credentials");
+          return null;
+        }
+
+        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(null);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -105,6 +120,30 @@ public class AuthenticationService {
             .refreshToken(refreshToken)
         .build();
   }
+
+  // original copy
+  // public AuthenticationResponse authenticate(AuthenticationRequest request, HttpSession session) {
+
+  //   authenticationManager.authenticate(
+  //       new UsernamePasswordAuthenticationToken(
+  //           request.getEmail(),
+  //           request.getPassword()
+  //       )
+  //   );
+
+  //   var user = userRepository.findByEmail(request.getEmail())
+  //       .orElseThrow();
+  //       var jwtToken = jwtService.generateToken(user);
+  //       var refreshToken = jwtService.generateRefreshToken(user);
+  //       revokeAllUserTokens(user);
+  //       saveUserToken(user, jwtToken);
+  //       session.setAttribute("uuid", user.getId());
+
+  //   return AuthenticationResponse.builder()
+  //       .accessToken(jwtToken)
+  //           .refreshToken(refreshToken)
+  //       .build();
+  // }
 
   private void saveUserToken(User user, String jwtToken) {
 

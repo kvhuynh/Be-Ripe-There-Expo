@@ -45,9 +45,14 @@ export const Login: React.FC<Props> = (Props) => {
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		loginUser(loginData).then(() => {
-			Props.navigation.navigate("TabNavigation");
-		});
+		loginUser(loginData)
+			.then((response: any) => {
+				console.log(response);
+				if (response.access_token !== null) {
+					Props.navigation.navigate("TabNavigation");
+				}
+				
+			});
 	};
     return (
         <SafeAreaView style={styles.container}>
@@ -58,6 +63,7 @@ export const Login: React.FC<Props> = (Props) => {
                         <TextInput
                             style={styles.input}
                             placeholder="Enter Email"
+							autoCapitalize="none"
                             onChangeText={(e: string) => handleChange("email", e)}
                         />
                     </View>

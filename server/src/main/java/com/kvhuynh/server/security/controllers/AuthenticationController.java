@@ -58,10 +58,28 @@ public class AuthenticationController {
 
     }
 
-    @GetMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpSession session) {
-        System.out.println("User has been successfully authenticated");
-        return ResponseEntity.ok(authService.authenticate(request, session));
+    // @GetMapping("/authenticate")
+    // public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request, HttpSession session) {
+    //     // System.out.println("User has been successfully authenticated");
+    //     return ResponseEntity.ok(authService.authenticate(request, session));
+    // }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest request, BindingResult result, HttpSession session) throws JsonProcessingException{
+        // System.out.println("User has been successfully authenticated");
+        // System.out.println(result);
+        System.out.println("yo");
+        AuthenticationResponse test = authService.authenticate(request, session, result);
+        if (result.hasErrors()) {
+            System.out.println("do we get here");
+            AuthenticationResponse error = authService.generateError(result);
+
+            return ResponseEntity.ok(error);
+        }
+        System.out.println(result);
+        // System.out.println(test);
+        return ResponseEntity.ok(test);
+        // return ResponseEntity.ok(authService.authenticate(request, session, result));
     }
 
     @PostMapping("/refresh-token")
