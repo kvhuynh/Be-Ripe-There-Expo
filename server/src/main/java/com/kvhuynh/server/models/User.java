@@ -28,6 +28,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -48,11 +49,11 @@ public class User implements UserDetails{
     private Long id;
     
     @NotEmpty(message="First Name is required!")
-    @Size(min=3, max=30, message="name must be between 3 and 30 characters")
+    @Size(min=3, max=30, message="First Name is required")
     private String firstName;
 
 	@NotEmpty(message="Last Name is required!")
-    @Size(min=3, max=30, message="name must be between 3 and 30 characters")
+    @Size(min=3, max=30, message="Last Name is required")
     private String lastName;
     
     @NotEmpty(message="Email is required!")
@@ -62,6 +63,9 @@ public class User implements UserDetails{
     @NotEmpty(message="Password is required!")
     @Size(min=8, max=128, message="Password must be between 8 and 128 characters")
     private String password;
+
+    @NotEmpty(message="Please confirm password")
+	private String confirmPassword;
     
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -70,9 +74,6 @@ public class User implements UserDetails{
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
     
-	// @Transient
-    // @NotEmpty(message="Please confirm password")
-	// private String confirmPassword;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -110,6 +111,12 @@ public class User implements UserDetails{
 	public String getPassword() {
 		return password;
 	}
+
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
 
 	@Override
 	public String getUsername() {

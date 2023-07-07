@@ -8,7 +8,7 @@ import { LoginState } from "../views/login-registration/Login";
 
 const { manifest } = Constants;
 
-// const uri = `http://${manifest!.debuggerHost!.split(':').shift()}:8080/api/v1/auth/register`;
+// const uri = `http://${manifest!.debuggerHost!.split(':').shift()}:8080/api/v1/auth/`;
 const uri = "http://localhost:8080/api/v1/auth/"
 
 const http = axios.create({

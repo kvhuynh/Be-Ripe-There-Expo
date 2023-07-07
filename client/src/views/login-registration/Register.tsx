@@ -43,6 +43,7 @@ interface ErrorState {
 	emailError: string;
 	passwordError: string;
 	confirmPasswordError: string;
+	errors: boolean;
 }
 
 const initialUserState = {
@@ -51,6 +52,7 @@ const initialUserState = {
 	email: "",
 	password: "",
 	confirmPassword: "",
+	errors: false
 };
 
 const initialErrorState = {
@@ -216,7 +218,7 @@ export const Register: React.FC<Props> = (Props) => {
 				if (response.access_token === null) {
 					// console.log(response.error);
 					setUserErrors(response.error);
-					
+					// setUserErrors({...userErrors, errors: true})
 				} else {
 					Props.navigation.navigate("UserDetails");
 				}
@@ -235,10 +237,20 @@ export const Register: React.FC<Props> = (Props) => {
 
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<ScrollView>
+		<ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.container}>
+			<SafeAreaView>
 				<Header name="Create an Account"></Header>
 				<View style={styles.inputGroup}>
+					{userErrors.errors ? <Text>Please resolve the following errors:</Text> :
+					""}
+					<View style={{marginLeft: 20, marginBottom: 20}}>
+						{userErrors.firstNameError ? <Text style={{ color: "red" }}>{'\u2022'} {userErrors.firstNameError}</Text> : ""}
+						{userErrors.lastNameError ? <Text style={{ color: "red" }}>{'\u2022'} {userErrors.lastNameError}</Text> : ""}
+						{userErrors.emailError ? <Text style={{ color: "red" }}>{'\u2022'} { userErrors.emailError}</Text> : ""}
+						{userErrors.passwordError ? <Text style={{ color: "red" }}>{'\u2022'} {userErrors.passwordError}</Text> : ""}
+						{userErrors.confirmPasswordError ? <Text style={{ color: "red" }}>{'\u2022'} {userErrors.confirmPasswordError}</Text> : ""}
+					</View>
+
 					<View>
 						<Text style={styles.inputTitle}>First Name:</Text>
 						<TextInput
@@ -246,7 +258,6 @@ export const Register: React.FC<Props> = (Props) => {
 							placeholder="Enter First Name"
 							onChangeText={(e: string) => handleChange("firstName", e)}
 						/>
-						{userErrors.firstNameError ? <Text style={{ color: "red" }}>{userErrors.firstNameError}</Text> : ""}
 					</View>
 					<View style={styles.inputBox}>
 						<Text style={styles.inputTitle}>Last Name:</Text>
@@ -255,17 +266,15 @@ export const Register: React.FC<Props> = (Props) => {
 							placeholder="Enter Last Name"
 							onChangeText={(e: string) => handleChange("lastName", e)}
 						/>
-						{userErrors.lastNameError ? <Text style={{ color: "red" }}>{userErrors.lastNameError}</Text> : ""}
-
 					</View>
 					<View style={styles.inputBox}>
 						<Text style={styles.inputTitle}>Email:</Text>
 						<TextInput
 							style={styles.input}
 							placeholder="Enter Email"
+							autoCapitalize="none"
 							onChangeText={(e: string) => handleChange("email", e)}
 						/>
-						{userErrors.emailError ? <Text style={{ color: "red" }}>{userErrors.emailError}</Text> : ""}
 					</View>
 					<View style={styles.inputBox}>
 						<Text style={styles.inputTitle}>Password:</Text>
@@ -275,8 +284,6 @@ export const Register: React.FC<Props> = (Props) => {
 							placeholder="Enter Password"
 							onChangeText={(e: string) => handleChange("password", e)}
 						/>
-						{userErrors.passwordError ? <Text style={{ color: "red" }}>{userErrors.passwordError}</Text> : ""}
-
 					</View>
 					<View style={styles.inputBox}>
 						<Text style={styles.inputTitle}>Confirm Password:</Text>
@@ -286,17 +293,17 @@ export const Register: React.FC<Props> = (Props) => {
 							placeholder="Enter Confirm Password"
 							onChangeText={(e: string) => handleChange("confirmPassword", e)}
 						/>
-						{userErrors.confirmPasswordError ? <Text style={{ color: "red" }}>{userErrors.emailError}</Text> : ""}
-
 					</View>
+					<TouchableOpacity style={styles.button} onPress={handleSubmit}>
+						<Text style={styles.buttonText}>Continue</Text>
+					</TouchableOpacity>
+					<SignInWithThirdParty isLogin={false}></SignInWithThirdParty>
 				</View>
-				<TouchableOpacity style={styles.button} onPress={handleSubmit}>
-					<Text style={styles.buttonText}>Continue</Text>
-				</TouchableOpacity>
-				<SignInWithThirdParty isLogin={false}></SignInWithThirdParty>
+				{/* <View style={{height:325}}>
 
-			</ScrollView>
-		</SafeAreaView>
+				</View> */}
+			</SafeAreaView>
+		</ScrollView>
 	);
 };
 
@@ -304,7 +311,8 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#FFFFFF",
 		width: screenWidth,
-		height: screenHeight,
+		// height: screenHeight,
+		flex: 1
 	},
 
 	inputTitle: {
@@ -339,7 +347,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: "#3B9744",
 		marginBottom: 30,
-		marginTop: 40
+		marginTop: 30
 	},
 	buttonText: {
 		backgroundColor: "#3B9744",

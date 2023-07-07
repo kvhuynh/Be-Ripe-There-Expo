@@ -52,8 +52,13 @@ public class AuthenticationService {
 			result.rejectValue("email", "Unique", "Email is already in use.");
 		}
 
+    if (!request.getPassword().equals(request.getConfirmPassword())) {
+      System.out.println("passwords dont match");
+      result.rejectValue("confirmPassword", "Matches", "Passwords must match.");
+    }
+
     if (result.hasErrors()) {
-      // result.rejectValue("email", "Unique", "what the fuck");
+
       return null;
     }
 
@@ -62,6 +67,7 @@ public class AuthenticationService {
           .lastName(request.getLastName())
           .email(request.getEmail())
           .password(passwordEncoder.encode(request.getPassword()))
+          .confirmPassword(request.getConfirmPassword())
           .role(request.getRole())
           .build();
       var savedUser = userRepository.save(user);
@@ -167,6 +173,7 @@ public class AuthenticationService {
 
       errors.put(error.getField() + "Error", error.getDefaultMessage());
     }
+    errors.put("errors", "true");
     System.out.println(errors);
     return AuthenticationResponse.builder().error(errors).build(); 
   }

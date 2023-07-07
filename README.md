@@ -1,22 +1,6 @@
 # Be Ripe There
 
-<!-- ![logo for dark mode]("/../client/src/images/splash-page/logo-4x.png#gh-dark-mode-only "Title") -->
-
-<!-- ![logo for dark mode](./client/src/images/splash-page/logo-4x.png)  -->
-<!-- ![logo for light mode]("/../client/src/images/splash-page/light-logo-4x.png#gh-light-mode-only "Title") -->
-
 ![logo for light mode](./client/src/images/splash-page/be-ripe-there-readme.png)
-
-<!-- <picture>
- <source media="(prefers-color-scheme: dark)" srcset="./client/src/images/splash-page/logo-4x.png">
- <source media="(prefers-color-scheme: light)" srcset="./client/src/images/splash-page/light-logo-4x.png">
- <img alt="Be Ripe There logo">
-</picture>
-
-<picture>
-    <source media="(prefers-color-scheme: light)" srcset="./client/src/images/splash-page/light-logo-4x.png">
-    <img alt="Be Ripe There logo">
-</picture> -->
 
 
 This repository contains the code and documentation for a personal project that aims to create an app serving as a healthy recipe finder and nutrition tracker. The project involves collaboration with [Carl Arenas](https://www.carlarenas.com/), a UX designer to ensure an intuitive user experience.
@@ -46,7 +30,7 @@ npm start
 
 4. Access the app locally by opening the Expo App and scanning the QR code.
 
-## Technologies User
+## Technologies Used
 - Front-end: React Native, Redux
 - Back-end: Spring Boot, Spring Security
 - Database: MySQL
