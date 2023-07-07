@@ -1,6 +1,7 @@
 package com.kvhuynh.server.security.services;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,7 +9,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kvhuynh.server.models.User;
 import com.kvhuynh.server.repositories.UserRepository;
@@ -24,7 +27,7 @@ import com.kvhuynh.server.services.CalendarService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor; 
 
 
 @Service
@@ -43,33 +46,35 @@ public class AuthenticationService {
 
   private final AuthenticationManager authenticationManager;
 
-  public AuthenticationResponse register(RegisterRequest request, BindingResult result, HttpSession session) {
+  public AuthenticationResponse register(User request, BindingResult result, HttpSession session) {
 
     if (userRepository.findByEmail(request.getEmail()).isPresent()) {
 			result.rejectValue("email", "Unique", "Email is already in use.");
 		}
 
     if (result.hasErrors()) {
+      // result.rejectValue("email", "Unique", "what the fuck");
       return null;
     }
 
-    var user = User.builder()
-        .firstName(request.getFirstName())
-        .lastName(request.getLastName())
-        .email(request.getEmail())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(request.getRole())
-        .build();
-    var savedUser = userRepository.save(user);
-    calendarService.createCalendar(savedUser);
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
-    saveUserToken(savedUser, jwtToken);
-    session.setAttribute("uuid", savedUser.getId());
-    return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-        .build();
+      var user = User.builder()
+          .firstName(request.getFirstName())
+          .lastName(request.getLastName())
+          .email(request.getEmail())
+          .password(passwordEncoder.encode(request.getPassword()))
+          .role(request.getRole())
+          .build();
+      var savedUser = userRepository.save(user);
+      calendarService.createCalendar(savedUser);
+      var jwtToken = jwtService.generateToken(user);
+      var refreshToken = jwtService.generateRefreshToken(user);
+      saveUserToken(savedUser, jwtToken);
+      session.setAttribute("uuid", savedUser.getId());
+      return AuthenticationResponse.builder()
+          .accessToken(jwtToken)
+              .refreshToken(refreshToken)
+          .build();
+
   }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request, HttpSession session) {
@@ -155,7 +160,14 @@ public class AuthenticationService {
     }
   }
 
-  public AuthenticationResponse generateError(BindingResult result) {
-    return AuthenticationResponse.builder().error(result.toString()).build();
+  public AuthenticationResponse generateError(BindingResult result) throws JsonProcessingException {
+
+    HashMap<String, String> errors = new HashMap<>();
+    for (FieldError error : result.getFieldErrors()) {
+
+      errors.put(error.getField() + "Error", error.getDefaultMessage());
+    }
+    System.out.println(errors);
+    return AuthenticationResponse.builder().error(errors).build(); 
   }
 }

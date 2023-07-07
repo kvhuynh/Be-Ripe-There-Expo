@@ -10,6 +10,7 @@ import {
 	Dimensions,
 	TextInput,
 	TouchableOpacity,
+	SafeAreaView
 } from "react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "UserDetails">;
@@ -18,7 +19,7 @@ const screenWidth = Dimensions.get("window").width;
 
 export const UserDetails: React.FC<Props> = (Props) => {
 	return (
-		<ScrollView style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<Header name="Enter Information"></Header>
 			<View style={styles.inputGroup}>
 				<View>
@@ -82,7 +83,7 @@ export const UserDetails: React.FC<Props> = (Props) => {
 			})}>
 				<Text style={styles.buttonText}>Continue</Text>
 			</TouchableOpacity>
-		</ScrollView>
+		</SafeAreaView>
 	);
 };
 

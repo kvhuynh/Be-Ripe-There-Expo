@@ -4,13 +4,17 @@ import java.io.IOException;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.kvhuynh.server.models.User;
 import com.kvhuynh.server.security.models.AuthenticationRequest;
 import com.kvhuynh.server.security.models.AuthenticationResponse;
 import com.kvhuynh.server.security.models.RegisterRequest;
@@ -22,6 +26,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -36,18 +41,19 @@ public class AuthenticationController {
     private final CalendarService calendarService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request, BindingResult result, HttpSession session) {
-
-        AuthenticationResponse test = authService.register(request, result, session);
-        
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody User user, BindingResult result, HttpSession session) throws JsonProcessingException {
+    // public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request, BindingResult result, HttpSession session) throws JsonProcessingException {
+        System.out.println(user);
+        AuthenticationResponse potentialUser = authService.register(user, result, session); // set session later with user.getId()
         if (result.hasErrors()) {
+
             AuthenticationResponse error = authService.generateError(result);
             return ResponseEntity.ok(error);
+
         }
         System.out.println(session.getAttribute("uuid"));
 
         System.out.println("User has successfully registered");
-        // return ResponseEntity.ok(test);
         return null;
 
     }

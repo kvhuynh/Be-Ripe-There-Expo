@@ -19,9 +19,9 @@ export const Meals = ({ navigation }) => {
 
 	const [selected, setSelected] = useState(null);
 
-	const updateSearch = (search) => {
-		setSearch(search);
-	};
+	// const updateSearch = (search) => {
+	// 	setSearch(search);
+	// };
 
 	const specializedMeals = [
 		"Protein",

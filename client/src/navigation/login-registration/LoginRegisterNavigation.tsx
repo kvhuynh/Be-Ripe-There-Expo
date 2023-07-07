@@ -33,6 +33,7 @@ export const LoginRegisterStack: React.FC = () => {
             }}
             initialRouteName="SplashScreen"
         >
+            {/* start */}
             <Stack.Screen 
             name="SplashScreen" 
             component={SplashScreen}
@@ -42,6 +43,7 @@ export const LoginRegisterStack: React.FC = () => {
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="UserDetails" component={UserDetails}/>
             <Stack.Screen name="SelectGoal" component={SelectGoal}/>
+            {/* end */}
             <Stack.Screen name="TabNavigation" component={TabNavigation} />
         </Stack.Navigator>
       );

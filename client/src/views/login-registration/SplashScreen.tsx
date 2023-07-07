@@ -36,18 +36,18 @@ export const SplashScreen: React.FC<Props> = (Props) => {
 	const initialValue = 0;
 	const translateValue = useRef(new Animated.Value(initialValue)).current;
 	
-	useEffect(() => {
-		const translate = () => {
-			translateValue.setValue(initialValue);
-			Animated.timing(translateValue, {
-				toValue: ANIMATION_TO_VALUE,
-				duration: ANIMATION_DURATION,
-				easing: Easing.linear,
-				useNativeDriver: true,
-			}).start(() => translate());
-		}; 
-		translate();
-	}, [translateValue]);
+	// useEffect(() => {
+	// 	const translate = () => {
+	// 		translateValue.setValue(initialValue);
+	// 		Animated.timing(translateValue, {
+	// 			toValue: ANIMATION_TO_VALUE,
+	// 			duration: ANIMATION_DURATION,
+	// 			easing: Easing.linear,
+	// 			useNativeDriver: true,
+	// 		}).start(() => translate());
+	// 	}; 
+	// 	translate();
+	// }, [translateValue]);
 
 	const translateAnimation = translateValue.interpolate({
 		inputRange: [INPUT_RANGE_START, INPUT_RANGE_END],
@@ -113,6 +113,7 @@ export const SplashScreen: React.FC<Props> = (Props) => {
 							color: "#FFFFFF",
 						}}
 					>
+						{/* Already a member? <Text style={{color: "#3B9744"}} onPress={() => Props.navigation.navigate("Login")} >Sign in</Text> */}
 						Already a member? <Text style={{color: "#3B9744"}} onPress={() => Props.navigation.navigate("Login")} >Sign in</Text>
 					</Text>
 				</View>

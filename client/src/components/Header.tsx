@@ -11,7 +11,7 @@ export const Header: React.FC<Props> = (Props) => {
 					paddingTop: "10%",
 				}}
 			>
-				<Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: "10%" }}>
+				<Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: "5%" }}>
 					{Props.name}
 				</Text>
 			</View>

@@ -1,5 +1,7 @@
 package com.kvhuynh.server.security.models;
 
+import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +22,6 @@ public class AuthenticationResponse {
   private String refreshToken;
 
   @JsonProperty("error")
-  private String error;
+  private HashMap<String, String> error;
 }
 

@@ -7,10 +7,12 @@ import {
 	TextInput,
 	TouchableOpacity,
 	View,
+	SafeAreaView
 } from "react-native";
 
 import { useState, useEffect } from "react";
 
+import { SignInWithThirdParty } from "../../components/SignInWithThirdParty"
 import { createUser } from "../../services/internalApiService";
 
 import { Header } from "../../components/Header";
@@ -27,7 +29,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
 
-interface UserState {
+export interface UserState {
 	firstName: string;
 	lastName: string;
 	email: string;
@@ -40,6 +42,7 @@ interface ErrorState {
 	lastNameError: string;
 	emailError: string;
 	passwordError: string;
+	confirmPasswordError: string;
 }
 
 const initialUserState = {
@@ -55,6 +58,7 @@ const initialErrorState = {
 	lastNameError: "",
 	emailError: "",
 	passwordError: "",
+	confirmPasswordError: ""
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
@@ -68,6 +72,8 @@ export const Register: React.FC<Props> = (Props) => {
 	const [userInformation, setUserInformation] =
 		useState<UserState>(initialUserState);
 
+	const [userErrors, setUserErrors] = useState<ErrorState>(initialErrorState);
+
 	const [googleRequest, googleResponse, googlePromptAsync] =
 		Google.useAuthRequest({
 			expoClientId: process.env.GOOGLE_EXPO_CLIENT_ID,
@@ -78,57 +84,50 @@ export const Register: React.FC<Props> = (Props) => {
 			clientId: process.env.FACEBOOK_EXPO_CLIENT_ID,
 		});
 
-	useEffect(() => {
-		console.log(googleResponse);
-		if (googleResponse?.type === "success") {
-			setAuth(googleResponse.authentication);
+	// const handleSetErrors = (errorKey: string, errorMessage: string) => {
+	// 	setUserErrors(errorKey);
+	// }
 
-			const persistAuth = async () => {
-				await AsyncStorage.setItem(
-					"auth",
-					JSON.stringify(googleResponse.authentication)
-				);
-			};
-			persistAuth();
-			Props.navigation.dispatch(
-				CommonActions.reset({
-				  index: 0,
-				  routes: [{ name: "TabNavigation" }]
-				})
-		  )
-		}
-	}, [googleResponse]);
+	// useEffect(() => {
+	// 	// console.log(googleResponse);
+	// 	if (googleResponse?.type === "success") {
+	// 		setAuth(googleResponse.authentication);
 
-	useEffect(() => {
-		const getPersistedAuth = async () => {
-			const jsonValue = await AsyncStorage.getItem("auth");
-			if (jsonValue != null) {
-				const authFromJson = JSON.parse(jsonValue);
-				setAuth(authFromJson);
-				console.log(authFromJson);
+	// 		const persistAuth = async () => {
+	// 			await AsyncStorage.setItem(
+	// 				"auth",
+	// 				JSON.stringify(googleResponse.authentication)
+	// 			);
+	// 		};
+	// 		persistAuth();
+	// 		Props.navigation.dispatch(
+	// 			CommonActions.reset({
+	// 			  index: 0,
+	// 			  routes: [{ name: "TabNavigation" }]
+	// 			})
+	// 	  )
+	// 	}
+	// }, [googleResponse]);
 
-				setRequireRefresh(
-					!AuthSession.TokenResponse.isTokenFresh({
-						expiresIn: authFromJson.expiresIn,
-						issuedAt: authFromJson.issuedAt,
-					})
-				);
-			}
-		};
-		getPersistedAuth();
-	}, []);
+	// useEffect(() => {
+	// 	const getPersistedAuth = async () => {
+	// 		const jsonValue = await AsyncStorage.getItem("auth");
+	// 		if (jsonValue != null) {
+	// 			const authFromJson = JSON.parse(jsonValue);
+	// 			setAuth(authFromJson);
+	// 			console.log(authFromJson);
 
-	const handleChange = (prop: keyof UserState, event: string) => {
-		setUserInformation({ ...userInformation, [prop]: event });
-	};
-
-	const handleSubmit = (event: any) => {
-		event.preventDefault();
-		createUser(userInformation).then(() => {
-			Props.navigation.navigate("UserDetails");
-		});
-	};
-
+	// 			setRequireRefresh(
+	// 				!AuthSession.TokenResponse.isTokenFresh({
+	// 					expiresIn: authFromJson.expiresIn,
+	// 					issuedAt: authFromJson.issuedAt,
+	// 				})
+	// 			);
+	// 		}
+	// 	};
+	// 	getPersistedAuth();
+	// }, []);
+	
 	const getUserData = async () => {
 		let userInfoResponse = await fetch(
 			"https://www.googleapis.com/userinfo/v2/me",
@@ -138,7 +137,7 @@ export const Register: React.FC<Props> = (Props) => {
 		);
 
 		userInfoResponse.json().then((data) => {
-			console.log(data);
+			// console.log(data);
 			setUserInfo(data);
 		});
 	};
@@ -191,125 +190,113 @@ export const Register: React.FC<Props> = (Props) => {
 	// 	)
 	//   }
 
-	const logout = async () => {
-		await AuthSession.revokeAsync(
-			{
-				token: auth.accessToken,
-			},
-			{
-				revocationEndpoint: "https://oauth2.googleapis.com/revoke",
-			}
-		);
+	// const logout = async () => {
+	// 	await AuthSession.revokeAsync(
+	// 		{
+	// 			token: auth.accessToken,
+	// 		},
+	// 		{
+	// 			revocationEndpoint: "https://oauth2.googleapis.com/revoke",
+	// 		}
+	// 	);
 
-		setAuth(undefined);
-		setUserInfo(undefined);
-		await AsyncStorage.removeItem("auth");
+	// 	setAuth(undefined);
+	// 	setUserInfo(undefined);
+	// 	await AsyncStorage.removeItem("auth");
+	// };
+
+	const handleChange = (prop: keyof UserState, event: string) => {
+		setUserInformation({ ...userInformation, [prop]: event });
 	};
 
+	const handleSubmit = (event: any) => {
+		event.preventDefault();
+		createUser(userInformation)
+			.then((response) => {
+				if (response.access_token === null) {
+					// console.log(response.error);
+					setUserErrors(response.error);
+					
+				} else {
+					Props.navigation.navigate("UserDetails");
+				}
+			
+			})
+			.then(() => {
+				console.log(userErrors.emailError);
+			})
+			.catch((error: any) => {
+				console.log(error);
+				
+			});
+	};
+
+
+
+
 	return (
-		<ScrollView style={styles.container}>
-			<Header name="Create an Account"></Header>
-			<View style={styles.inputGroup}>
-				<View>
-					<Text style={styles.inputTitle}>First Name:</Text>
-					<TextInput
-						style={styles.input}
-						placeholder="Enter First Name"
-						onChangeText={(e: string) => handleChange("firstName", e)}
-					/>
-				</View>
-				<View style={styles.inputBox}>
-					<Text style={styles.inputTitle}>Last Name:</Text>
-					<TextInput
-						style={styles.input}
-						placeholder="Enter Last Name"
-						onChangeText={(e: string) => handleChange("lastName", e)}
-					/>
-				</View>
-				<View style={styles.inputBox}>
-					<Text style={styles.inputTitle}>Email:</Text>
-					<TextInput
-						style={styles.input}
-						placeholder="Enter Email"
-						onChangeText={(e: string) => handleChange("email", e)}
-					/>
-				</View>
-				<View style={styles.inputBox}>
-					<Text style={styles.inputTitle}>Password:</Text>
-					<TextInput
-						style={styles.input}
-						secureTextEntry={true}
-						placeholder="Enter Password"
-						onChangeText={(e: string) => handleChange("password", e)}
-					/>
-				</View>
-				<View style={styles.inputBox}>
-					<Text style={styles.inputTitle}>Confirm Password:</Text>
-					<TextInput
-						style={styles.input}
-						secureTextEntry={true}
-						placeholder="Enter Confirm Password"
-						onChangeText={(e: string) => handleChange("confirmPassword", e)}
-					/>
-				</View>
-			</View>
-			<TouchableOpacity style={styles.button} onPress={handleSubmit}>
-				<Text style={styles.buttonText}>Continue</Text>
-			</TouchableOpacity>
+		<SafeAreaView style={styles.container}>
+			<ScrollView>
+				<Header name="Create an Account"></Header>
+				<View style={styles.inputGroup}>
+					<View>
+						<Text style={styles.inputTitle}>First Name:</Text>
+						<TextInput
+							style={styles.input}
+							placeholder="Enter First Name"
+							onChangeText={(e: string) => handleChange("firstName", e)}
+						/>
+						{userErrors.firstNameError ? <Text style={{ color: "red" }}>{userErrors.firstNameError}</Text> : ""}
+					</View>
+					<View style={styles.inputBox}>
+						<Text style={styles.inputTitle}>Last Name:</Text>
+						<TextInput
+							style={styles.input}
+							placeholder="Enter Last Name"
+							onChangeText={(e: string) => handleChange("lastName", e)}
+						/>
+						{userErrors.lastNameError ? <Text style={{ color: "red" }}>{userErrors.lastNameError}</Text> : ""}
 
-			<View style={{ justifyContent: "space-between", height: "15%" }}>
-				<View style={{ flexDirection: "row" }}>
-					<View style={[styles.line, { marginLeft: 90 }]} />
-					<Text style={styles.lineText}>Or Sign up With</Text>
-					<View style={[styles.line, { marginRight: 90 }]} />
-				</View>
-				<View style={{ flexDirection: "row", justifyContent: "center" }}>
-					<TouchableOpacity
-						disabled={!googleRequest}
-						onPress={() => {
-							googlePromptAsync();
-						}}
-					>
-						<Image
-							style={styles.thirdPartyLogo}
-							source={require("../../images/third-party/google-logo-7.png")}
-						></Image>
-					</TouchableOpacity>
-					<View style={{ padding: 10 }}></View>
-					<TouchableOpacity
-						disabled={!googleRequest}
-						onPress={logout}
-					>
-						<Image
-							style={styles.thirdPartyLogo}
-							source={require("../../images/third-party/google-logo-7.png")}
-						></Image>
-					</TouchableOpacity>
-					<View style={{ padding: 10 }}></View>
+					</View>
+					<View style={styles.inputBox}>
+						<Text style={styles.inputTitle}>Email:</Text>
+						<TextInput
+							style={styles.input}
+							placeholder="Enter Email"
+							onChangeText={(e: string) => handleChange("email", e)}
+						/>
+						{userErrors.emailError ? <Text style={{ color: "red" }}>{userErrors.emailError}</Text> : ""}
+					</View>
+					<View style={styles.inputBox}>
+						<Text style={styles.inputTitle}>Password:</Text>
+						<TextInput
+							style={styles.input}
+							secureTextEntry={true}
+							placeholder="Enter Password"
+							onChangeText={(e: string) => handleChange("password", e)}
+						/>
+						{userErrors.passwordError ? <Text style={{ color: "red" }}>{userErrors.passwordError}</Text> : ""}
 
-					<TouchableOpacity
-						disabled={!faceBookRequest}
-						onPress={() => {
-							faceBookPromptAsync();
-						}}
-					>
-						<Image
-							style={styles.thirdPartyLogo}
-							source={require("../../images/third-party/facebook-logo-3.png")}
-						></Image>
-					</TouchableOpacity>
+					</View>
+					<View style={styles.inputBox}>
+						<Text style={styles.inputTitle}>Confirm Password:</Text>
+						<TextInput
+							style={styles.input}
+							secureTextEntry={true}
+							placeholder="Enter Confirm Password"
+							onChangeText={(e: string) => handleChange("confirmPassword", e)}
+						/>
+						{userErrors.confirmPasswordError ? <Text style={{ color: "red" }}>{userErrors.emailError}</Text> : ""}
+
+					</View>
 				</View>
-				<Text style={{ textAlign: "center" }}>
-					Already a member?{" "}
-					<Text
-						style={{ color: "#3B9744" }}
-						onPress={() => Props.navigation.navigate("Login")}
-					>
-						Sign in
-					</Text>
-				</Text>
-			</View>
-		</ScrollView>
+				<TouchableOpacity style={styles.button} onPress={handleSubmit}>
+					<Text style={styles.buttonText}>Continue</Text>
+				</TouchableOpacity>
+				<SignInWithThirdParty isLogin={false}></SignInWithThirdParty>
+
+			</ScrollView>
+		</SafeAreaView>
 	);
 };
 
@@ -351,8 +338,8 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		borderWidth: 1,
 		borderColor: "#3B9744",
-		marginBottom: 40,
-		// marginTop: 40
+		marginBottom: 30,
+		marginTop: 40
 	},
 	buttonText: {
 		backgroundColor: "#3B9744",

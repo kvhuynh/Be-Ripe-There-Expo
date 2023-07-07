@@ -15,6 +15,7 @@ import {
 	TextInput,
 	TouchableOpacity,
     Image,
+    SafeAreaView
 } from "react-native";
 
 type Props = NativeStackScreenProps<RootStackParamList, "SelectGoal">;
@@ -24,7 +25,7 @@ const screenWidth = Dimensions.get("window").width;
 export const SelectGoal: React.FC<Props> = (Props) => {
 
     return (
-        <ScrollView style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Header name={Props.route.params.name}></Header>
             <View style={styles.inputGroup}>
                 <TouchableOpacity onPress={() => Props.navigation.dispatch(
@@ -62,7 +63,7 @@ export const SelectGoal: React.FC<Props> = (Props) => {
                 </TouchableOpacity>
             </View>
             
-        </ScrollView>
+        </SafeAreaView>
         
     )
 }

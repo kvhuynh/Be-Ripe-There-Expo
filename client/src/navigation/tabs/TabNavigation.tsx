@@ -7,8 +7,16 @@ import { HomeStack } from "./HomeStack"
 import { MealDetails } from "../../views/MealDetails";
 import { CalendarStack } from "./CalendarStack"
 
+export type TabStackParamList= {
+    HomeStack: undefined;
+    MealStack: undefined;
+    CalendarStack: undefined;
+    UserDetails: undefined;
+    SelectGoal: {name: string, firstChoice: boolean };
+}
+
 const Tab = createBottomTabNavigator();
-export const TabNavigation = () => {
+export const TabNavigation: React.FC = () => {
 	
 	return (
 		<Tab.Navigator>
