@@ -21,6 +21,8 @@
 
 This repository contains the code and documentation for a personal project that aims to create an app serving as a healthy recipe finder and nutrition tracker. The project involves collaboration with [Carl Arenas](https://www.carlarenas.com/), a UX designer to ensure an intuitive user experience.
 
+### [Link to demo](https://www.youtube.com/watch?v=JOa-NvoA4GI)
+
 ## Features
 - Recipe Finder: Search and discover a wide range of healthy recipes based on various criteria such as dietary preferences, ingredients, and cooking time.
 - Nutrition Tracking: Track your daily nutritional intake, including calories, macronutrients, vitamins, and minerals. The app rpovides an easy-to-use interface to log consumed meals and display nutritional information.
